@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.feh.dao.HerosDetailsMapper">
+  <resultMap id="BaseResultMap" type="org.feh.model.HerosDetails">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="heros_stars_id" jdbcType="INTEGER" property="herosStarsId" />
+    <result column="hp" jdbcType="INTEGER" property="hp" />
+    <result column="heros_detailscol" jdbcType="VARCHAR" property="herosDetailscol" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, heros_stars_id, hp, heros_detailscol
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from heros_details
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from heros_details
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="org.feh.model.HerosDetails">
+    insert into heros_details (id, heros_stars_id, hp, 
+      heros_detailscol)
+    values (#{id,jdbcType=INTEGER}, #{herosStarsId,jdbcType=INTEGER}, #{hp,jdbcType=INTEGER}, 
+      #{herosDetailscol,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="org.feh.model.HerosDetails">
+    insert into heros_details
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="herosStarsId != null">
+        heros_stars_id,
+      </if>
+      <if test="hp != null">
+        hp,
+      </if>
+      <if test="herosDetailscol != null">
+        heros_detailscol,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="herosStarsId != null">
+        #{herosStarsId,jdbcType=INTEGER},
+      </if>
+      <if test="hp != null">
+        #{hp,jdbcType=INTEGER},
+      </if>
+      <if test="herosDetailscol != null">
+        #{herosDetailscol,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.feh.model.HerosDetails">
+    update heros_details
+    <set>
+      <if test="herosStarsId != null">
+        heros_stars_id = #{herosStarsId,jdbcType=INTEGER},
+      </if>
+      <if test="hp != null">
+        hp = #{hp,jdbcType=INTEGER},
+      </if>
+      <if test="herosDetailscol != null">
+        heros_detailscol = #{herosDetailscol,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.feh.model.HerosDetails">
+    update heros_details
+    set heros_stars_id = #{herosStarsId,jdbcType=INTEGER},
+      hp = #{hp,jdbcType=INTEGER},
+      heros_detailscol = #{herosDetailscol,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+	<properties resource="common/generator.properties" />
+	<classPathEntry location="${classPathEntry}" />
+	<context id="fehTables" targetRuntime="MyBatis3">
+
+		<!-- optional，旨在创建class时，对注释进行控制 -->
+		<commentGenerator>
+			<property name="suppressDate" value="true" />
+			<property name="suppressAllComments" value="true" />
+		</commentGenerator>
+
+		<!-- 数据库连接信息 -->
+		<jdbcConnection connectionURL="${url}"
+			driverClass="${driver}" password="${password}" userId="${user}" />
+
+		<!-- 生成模型包名和位置 -->
+		<javaModelGenerator targetPackage="org.feh.model"
+			targetProject="FEH/src/main/java">
+			<!-- 是否允许子包，即targetPackage.schemaName.tableName -->
+			<property name="enableSubPackages" value="true" />
+			<!-- 设置是否在getter方法中，对String类型字段调用trim()方法 -->
+			<property name="trimString" value="true" />
+			<!-- 是否对model添加 构造函数 -->
+			<property name="constructorBased" value="false" />
+			<!-- 建立的Model对象是否 不可改变 即生成的Model对象不会有 setter方法，只有构造方法 -->
+			<property name="immutable" value="false" />
+		</javaModelGenerator>
+
+		<!-- 生成映射文件的包名和位置 -->
+		<sqlMapGenerator targetPackage="org.feh.mapper"
+			targetProject="FEH/src/main/resources">
+			<!-- 是否允许子包，即targetPackage.schemaName.tableName -->
+			<property name="enableSubPackages" value="true" />
+		</sqlMapGenerator>
+
+		<!-- 生成DAO的包名和位置 -->
+		<javaClientGenerator targetPackage="org.feh.dao"
+			targetProject="FEH/src/main/java" type="XMLMAPPER">
+			<!-- 是否允许子包，即targetPackage.schemaName.tableName -->
+			<property name="enableSubPackages" value="true" />
+		</javaClientGenerator>
+
+
+		<!-- 要生成的表 tableName是数据库中的表名或视图名 domainObjectName是实体类名 -->
+		<!-- Table configuration with catalog null, schema null, and table heros 
+			did not resolve to any tables 可能是数据库名与配置文件不匹配 -->
+		<table tableName="heros" selectByExampleQueryId="false"
+			enableCountByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" enableUpdateByExample="false">
+		</table>
+		<table tableName="heros_details" selectByExampleQueryId="false"
+			enableCountByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" enableUpdateByExample="false">
+		</table>
+		<table tableName="heros_name" selectByExampleQueryId="false"
+			enableCountByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" enableUpdateByExample="false">
+		</table>
+		<table tableName="heros_stars" selectByExampleQueryId="false"
+			enableCountByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" enableUpdateByExample="false">
+		</table>
+		<table tableName="skill" selectByExampleQueryId="false"
+			enableCountByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" enableUpdateByExample="false">
+		</table>
+		<table tableName="skill_description"
+			selectByExampleQueryId="false" enableCountByExample="false"
+			enableDeleteByExample="false" enableSelectByExample="false"
+			enableUpdateByExample="false">
+		</table>
+		<table tableName="skill_level" selectByExampleQueryId="false"
+			enableCountByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" enableUpdateByExample="false">
+		</table>
+		<table tableName="skill_name" selectByExampleQueryId="false"
+			enableCountByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" enableUpdateByExample="false">
+		</table>
+	</context>
+</generatorConfiguration>

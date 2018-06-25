@@ -12,7 +12,9 @@
 		<aop.version>1.8.0</aop.version>
 		<mybatis.version>3.3.0</mybatis.version>
 		<mybatis.spring.version>1.2.3</mybatis.spring.version>
+		<druid.version>1.0.20</druid.version>
 		<jackson.version>2.9.6</jackson.version>
+		<generator.version>1.3.6</generator.version>
 	</properties>
 
 	<dependencies>
@@ -117,13 +119,20 @@
 			<artifactId>mysql-connector-java</artifactId>
 			<version>5.1.9</version>
 		</dependency>
+        <!-- 导入dbcp的jar包，用来在applicationContext.xml中配置数据库 -->
+        <!-- 使用Druid代替Dbcp -->  
+		<!-- <dependency>
+			<groupId>commons-dbcp</groupId>
+			<artifactId>commons-dbcp</artifactId>
+			<version>1.4</version>
+		</dependency> -->
 		
 		
-		<!-- druid -->
+		<!-- Druid -->
 		<dependency>
 			<groupId>com.alibaba</groupId>
 			<artifactId>druid</artifactId>
-			<version>1.0.20</version>
+			<version>${druid.version}</version>
 		</dependency>
 		
 		
@@ -147,6 +156,18 @@
 		    <version>${jackson.version}</version>
 		</dependency>
 		
+		<!-- generator -->
+		<dependency>
+		    <groupId>org.mybatis.generator</groupId>
+		    <artifactId>mybatis-generator</artifactId>
+		    <version>${generator.version}</version>
+		    <type>pom</type>
+		</dependency>
+		<dependency>
+		    <groupId>org.mybatis.generator</groupId>
+		    <artifactId>mybatis-generator-maven-plugin</artifactId>
+		    <version>${generator.version}</version>
+		</dependency>
 		
 	</dependencies>
 	

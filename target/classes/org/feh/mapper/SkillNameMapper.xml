@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.feh.dao.SkillNameMapper">
+  <resultMap id="BaseResultMap" type="org.feh.model.SkillName">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="skill_id" jdbcType="INTEGER" property="skillId" />
+    <result column="name_cn" jdbcType="VARCHAR" property="nameCn" />
+    <result column="name_jp" jdbcType="VARCHAR" property="nameJp" />
+    <result column="name_en" jdbcType="VARCHAR" property="nameEn" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, skill_id, name_cn, name_jp, name_en
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from skill_name
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from skill_name
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="org.feh.model.SkillName">
+    insert into skill_name (id, skill_id, name_cn, 
+      name_jp, name_en)
+    values (#{id,jdbcType=INTEGER}, #{skillId,jdbcType=INTEGER}, #{nameCn,jdbcType=VARCHAR}, 
+      #{nameJp,jdbcType=VARCHAR}, #{nameEn,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="org.feh.model.SkillName">
+    insert into skill_name
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="skillId != null">
+        skill_id,
+      </if>
+      <if test="nameCn != null">
+        name_cn,
+      </if>
+      <if test="nameJp != null">
+        name_jp,
+      </if>
+      <if test="nameEn != null">
+        name_en,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="skillId != null">
+        #{skillId,jdbcType=INTEGER},
+      </if>
+      <if test="nameCn != null">
+        #{nameCn,jdbcType=VARCHAR},
+      </if>
+      <if test="nameJp != null">
+        #{nameJp,jdbcType=VARCHAR},
+      </if>
+      <if test="nameEn != null">
+        #{nameEn,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.feh.model.SkillName">
+    update skill_name
+    <set>
+      <if test="skillId != null">
+        skill_id = #{skillId,jdbcType=INTEGER},
+      </if>
+      <if test="nameCn != null">
+        name_cn = #{nameCn,jdbcType=VARCHAR},
+      </if>
+      <if test="nameJp != null">
+        name_jp = #{nameJp,jdbcType=VARCHAR},
+      </if>
+      <if test="nameEn != null">
+        name_en = #{nameEn,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.feh.model.SkillName">
+    update skill_name
+    set skill_id = #{skillId,jdbcType=INTEGER},
+      name_cn = #{nameCn,jdbcType=VARCHAR},
+      name_jp = #{nameJp,jdbcType=VARCHAR},
+      name_en = #{nameEn,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
