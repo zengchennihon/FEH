@@ -19,24 +19,47 @@ import org.springframework.transaction.annotation.Transactional;
 public class HerosServiceImpl implements HeroService {
 
 	@Resource
-	private HeroMapper herosMapper;
+	private HeroMapper heroMapper;
 	@Resource
-	private HeroNameMapper herosNameMapper;
+	private HeroNameMapper heroNameMapper;
 	@Resource
-	private HeroDetailsMapper herosDetailsMapper;
+	private HeroDetailsMapper heroDetailsMapper;
 	@Resource
-	private HeroStarsMapper herosStarsMapper;
+	private HeroStarsMapper heroStarsMapper;
 
 	@Override
 	public List<Hero> findAllHeros() {
-		List<Hero> heros = herosMapper.findAll();
+		List<Hero> heros = heroMapper.findAll();
 		return heros;
 	}
 
 	@Override
 	public List<HeroAllInfoVo> findHerosAllInfoVos() {
-		List<HeroAllInfoVo> infoVos = herosMapper.findAllInfoVos();
+		List<HeroAllInfoVo> infoVos = heroMapper.findAllInfoVos();
 		return infoVos;
+	}
+
+	@Override
+	public List<HeroAllInfoVo> findHerosAllInfoVosOrderBy(String attr, String order) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean save(Hero hero) {
+		int i = 0;
+		if(hero.getId() != null) {
+			i = heroMapper.updateByPrimaryKeySelective(hero);
+		} else {
+			i = heroMapper.insertSelective(hero);
+		}
+		return i > 0;
+	}
+
+	@Override
+	public Hero findById(Integer id) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

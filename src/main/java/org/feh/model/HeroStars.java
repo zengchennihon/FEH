@@ -5,7 +5,7 @@ public class HeroStars {
 
     private Integer heroId;
 
-    private Boolean stars;
+    private Byte stars;
 
     public Integer getId() {
         return id;
@@ -23,11 +23,11 @@ public class HeroStars {
         this.heroId = heroId;
     }
 
-    public Boolean getStars() {
+    public Byte getStars() {
         return stars;
     }
 
-    public void setStars(Boolean stars) {
+    public void setStars(Byte stars) {
         this.stars = stars;
     }
 }

@@ -4,7 +4,7 @@
   <resultMap id="BaseResultMap" type="org.feh.model.HeroStars">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="hero_id" jdbcType="INTEGER" property="heroId" />
-    <result column="stars" jdbcType="BIT" property="stars" />
+    <result column="stars" jdbcType="TINYINT" property="stars" />
   </resultMap>
   <sql id="Base_Column_List">
     id, hero_id, stars
@@ -22,7 +22,7 @@
   <insert id="insert" parameterType="org.feh.model.HeroStars">
     insert into hero_stars (id, hero_id, stars
       )
-    values (#{id,jdbcType=INTEGER}, #{heroId,jdbcType=INTEGER}, #{stars,jdbcType=BIT}
+    values (#{id,jdbcType=INTEGER}, #{heroId,jdbcType=INTEGER}, #{stars,jdbcType=TINYINT}
       )
   </insert>
   <insert id="insertSelective" parameterType="org.feh.model.HeroStars">
@@ -46,7 +46,7 @@
         #{heroId,jdbcType=INTEGER},
       </if>
       <if test="stars != null">
-        #{stars,jdbcType=BIT},
+        #{stars,jdbcType=TINYINT},
       </if>
     </trim>
   </insert>
@@ -57,7 +57,7 @@
         hero_id = #{heroId,jdbcType=INTEGER},
       </if>
       <if test="stars != null">
-        stars = #{stars,jdbcType=BIT},
+        stars = #{stars,jdbcType=TINYINT},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
@@ -65,7 +65,7 @@
   <update id="updateByPrimaryKey" parameterType="org.feh.model.HeroStars">
     update hero_stars
     set hero_id = #{heroId,jdbcType=INTEGER},
-      stars = #{stars,jdbcType=BIT}
+      stars = #{stars,jdbcType=TINYINT}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

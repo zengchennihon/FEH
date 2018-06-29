@@ -30,6 +30,7 @@ public class ScheduledExecutorRun {
 		ScheduledExecutorService scheduled = Executors.newScheduledThreadPool(timerTaskModels.size());
 		timerTaskModels.forEach(m -> {
 			String _clazz = m.getClazz();
+			logger.info("-----------------准备执行【" + _clazz + "】定时任务!-----------------");
 			setTaskTime(m);
 			if(period != null) {
 				scheduled.scheduleWithFixedDelay(()->{

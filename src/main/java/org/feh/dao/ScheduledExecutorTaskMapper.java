@@ -1,5 +1,7 @@
 package org.feh.dao;
 
+import java.util.List;
+
 import org.feh.model.ScheduledExecutorTask;
 
 public interface ScheduledExecutorTaskMapper {
@@ -14,4 +16,6 @@ public interface ScheduledExecutorTaskMapper {
     int updateByPrimaryKeySelective(ScheduledExecutorTask record);
 
     int updateByPrimaryKey(ScheduledExecutorTask record);
+
+	List<ScheduledExecutorTask> findAllClazzNotNull();
 }

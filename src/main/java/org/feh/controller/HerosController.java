@@ -27,7 +27,7 @@ public class HerosController {
 	
 	private Gson gson = new Gson();
 	
-	private Logger logger = Logger.getLogger(HerosController.class); 
+	Logger logger = Logger.getLogger(HerosController.class); 
 
 	@RequestMapping(value = "/findAllHeros")
 	@ResponseBody
