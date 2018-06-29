@@ -15,7 +15,7 @@
 		<async-supported>true</async-supported>
 		<init-param>
 			<param-name>encoding</param-name>
-			<param-value>UFT-8</param-value>
+			<param-value>UTF-8</param-value>
 		</init-param>
 	</filter>
 	<filter-mapping>
@@ -28,13 +28,14 @@
 	<!-- 防止Spring内存溢出监听器 -->
 	<!-- <listener> <listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class> 
 		</listener> -->
-		
+
+
 	<servlet>
 		<servlet-name>springMVC</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
-			<param-value>classpath:spring/spring-mvc.xml</param-value>
+			<param-value>classpath:spring/spring-*.xml</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 		<async-supported>true</async-supported>
@@ -45,6 +46,14 @@
 	</servlet-mapping>
 
 	<welcome-file-list>
-		<welcome-file>index.html</welcome-file>
+		<welcome-file>/WEB-INF/jsp/test.jsp</welcome-file>
 	</welcome-file-list>
+	
+	<servlet-mapping>
+		<servlet-name>default</servlet-name>
+		<url-pattern>*.js</url-pattern>
+		<url-pattern>*.css</url-pattern>
+		<url-pattern>*.htm</url-pattern>
+		<url-pattern>*.html</url-pattern>
+	</servlet-mapping>
 </web-app>

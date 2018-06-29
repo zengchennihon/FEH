@@ -9,6 +9,8 @@
 	<configs>
 		<config>src/main/resources/spring/spring-mvc.xml</config>
 		<config>src/main/resources/spring/spring-mybatis.xml</config>
+		<config>src/main/resources/spring/spring-interceptor.xml</config>
+		<config>src/main/resources/spring/spring-init.xml</config>
 	</configs>
 	<autoconfigs>
 	</autoconfigs>

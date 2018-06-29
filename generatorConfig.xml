@@ -46,19 +46,19 @@
 		<!-- 要生成的表 tableName是数据库中的表名或视图名 domainObjectName是实体类名 -->
 		<!-- Table configuration with catalog null, schema null, and table heros 
 			did not resolve to any tables 可能是数据库名与配置文件不匹配 -->
-		<table tableName="heros" selectByExampleQueryId="false"
+		<!-- <table tableName="hero" selectByExampleQueryId="false"
 			enableCountByExample="false" enableDeleteByExample="false"
 			enableSelectByExample="false" enableUpdateByExample="false">
 		</table>
-		<table tableName="heros_details" selectByExampleQueryId="false"
+		<table tableName="hero_details" selectByExampleQueryId="false"
 			enableCountByExample="false" enableDeleteByExample="false"
 			enableSelectByExample="false" enableUpdateByExample="false">
 		</table>
-		<table tableName="heros_name" selectByExampleQueryId="false"
+		<table tableName="hero_name" selectByExampleQueryId="false"
 			enableCountByExample="false" enableDeleteByExample="false"
 			enableSelectByExample="false" enableUpdateByExample="false">
 		</table>
-		<table tableName="heros_stars" selectByExampleQueryId="false"
+		<table tableName="hero_stars" selectByExampleQueryId="false"
 			enableCountByExample="false" enableDeleteByExample="false"
 			enableSelectByExample="false" enableUpdateByExample="false">
 		</table>
@@ -78,6 +78,13 @@
 		<table tableName="skill_name" selectByExampleQueryId="false"
 			enableCountByExample="false" enableDeleteByExample="false"
 			enableSelectByExample="false" enableUpdateByExample="false">
+		</table> -->
+		
+		<table tableName="timer_task_model" selectByExampleQueryId="false"
+			enableCountByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" enableUpdateByExample="false">
 		</table>
+		
+		
 	</context>
 </generatorConfiguration>
