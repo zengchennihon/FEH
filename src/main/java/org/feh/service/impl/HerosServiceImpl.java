@@ -10,13 +10,13 @@ import org.feh.dao.HeroNameMapper;
 import org.feh.dao.HeroStarsMapper;
 import org.feh.model.Hero;
 import org.feh.model.vo.HeroAllInfoVo;
-import org.feh.service.HerosService;
+import org.feh.service.HeroService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional(readOnly = true)
-public class HerosServiceImpl implements HerosService {
+public class HerosServiceImpl implements HeroService {
 
 	@Resource
 	private HeroMapper herosMapper;

@@ -7,7 +7,6 @@ import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLConnection;
 import java.net.URLEncoder;
 
 public class UrlUtils {
@@ -89,7 +88,13 @@ public class UrlUtils {
         BufferedReader reader = null;
 		try {
 			URL url = new URL(_url);
-			URLConnection connection = url.openConnection();
+			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+			connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+			connection.setRequestProperty("Accept-Charset", "utf-8");
+			connection.setRequestMethod("GET");
+			connection.setRequestProperty("Cookie", cookie);
+			connection.setRequestProperty("Referer", referer);
+			connection.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36)");
 			connection.connect();
 
             reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));

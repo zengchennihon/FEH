@@ -3,14 +3,13 @@ package org.feh.controller;
 import java.util.List;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 import org.feh.enums.HeroCharacterEnums;
 import org.feh.model.SkillLevel;
 import org.feh.model.functions.Result;
 import org.feh.model.vo.HeroAllInfoVo;
-import org.feh.service.HerosService;
+import org.feh.service.HeroService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,7 +23,7 @@ import com.google.gson.Gson;
 public class HerosController {
 	
 	@Resource
-	private HerosService herosService;
+	private HeroService herosService;
 	
 	private Gson gson = new Gson();
 	

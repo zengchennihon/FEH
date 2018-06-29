@@ -17,6 +17,8 @@ public class ResolveHerosUtils {
 	
 	private static Gson gson = new Gson();
 	
+	public static String heroHead = "https://gamewith.akamaized.net/article_tools/fireemblem/gacha/i_";
+	
 	public static void main(String[] args) {
 		List<HeroSource> sources = getHeroSourcesByFile();
 		sources.forEach(s -> {
@@ -36,7 +38,6 @@ public class ResolveHerosUtils {
 				sb.append(_sb);
 			}
 			if(sb.length() > 0) {
-				System.out.println(sb);
 				JSONObject object = new JSONObject(sb.toString());
 				Iterator<String> keys = object.keys();
 				while (keys.hasNext()) {
@@ -46,7 +47,6 @@ public class ResolveHerosUtils {
 					sources.add(source);
 				}
 			}
-			
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {

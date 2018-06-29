@@ -5,7 +5,7 @@ import java.util.List;
 import org.feh.model.Hero;
 import org.feh.model.vo.HeroAllInfoVo;
 
-public interface HerosService {
+public interface HeroService {
 	
 	public List<HeroAllInfoVo> findHerosAllInfoVos();
 	

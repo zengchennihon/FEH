@@ -3,13 +3,13 @@
 <mapper namespace="org.feh.dao.HeroNameMapper">
   <resultMap id="BaseResultMap" type="org.feh.model.HeroName">
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="heros_id" jdbcType="INTEGER" property="herosId" />
+    <result column="hero_id" jdbcType="INTEGER" property="heroId" />
     <result column="name_cn" jdbcType="VARCHAR" property="nameCn" />
     <result column="name_jp" jdbcType="VARCHAR" property="nameJp" />
     <result column="name_en" jdbcType="VARCHAR" property="nameEn" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, heros_id, name_cn, name_jp, name_en
+    id, hero_id, name_cn, name_jp, name_en
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -22,9 +22,9 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="org.feh.model.HeroName">
-    insert into hero_name (id, heros_id, name_cn, 
+    insert into hero_name (id, hero_id, name_cn, 
       name_jp, name_en)
-    values (#{id,jdbcType=INTEGER}, #{herosId,jdbcType=INTEGER}, #{nameCn,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=INTEGER}, #{heroId,jdbcType=INTEGER}, #{nameCn,jdbcType=VARCHAR}, 
       #{nameJp,jdbcType=VARCHAR}, #{nameEn,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="org.feh.model.HeroName">
@@ -33,8 +33,8 @@
       <if test="id != null">
         id,
       </if>
-      <if test="herosId != null">
-        heros_id,
+      <if test="heroId != null">
+        hero_id,
       </if>
       <if test="nameCn != null">
         name_cn,
@@ -50,8 +50,8 @@
       <if test="id != null">
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="herosId != null">
-        #{herosId,jdbcType=INTEGER},
+      <if test="heroId != null">
+        #{heroId,jdbcType=INTEGER},
       </if>
       <if test="nameCn != null">
         #{nameCn,jdbcType=VARCHAR},
@@ -67,8 +67,8 @@
   <update id="updateByPrimaryKeySelective" parameterType="org.feh.model.HeroName">
     update hero_name
     <set>
-      <if test="herosId != null">
-        heros_id = #{herosId,jdbcType=INTEGER},
+      <if test="heroId != null">
+        hero_id = #{heroId,jdbcType=INTEGER},
       </if>
       <if test="nameCn != null">
         name_cn = #{nameCn,jdbcType=VARCHAR},
@@ -84,7 +84,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="org.feh.model.HeroName">
     update hero_name
-    set heros_id = #{herosId,jdbcType=INTEGER},
+    set hero_id = #{heroId,jdbcType=INTEGER},
       name_cn = #{nameCn,jdbcType=VARCHAR},
       name_jp = #{nameJp,jdbcType=VARCHAR},
       name_en = #{nameEn,jdbcType=VARCHAR}

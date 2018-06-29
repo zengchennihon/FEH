@@ -3,7 +3,7 @@ package org.feh.model;
 public class HeroDetails {
     private Integer id;
 
-    private Integer herosStarsId;
+    private Integer heroStarsId;
 
     private String heroCharacter;
 
@@ -25,12 +25,12 @@ public class HeroDetails {
         this.id = id;
     }
 
-    public Integer getHerosStarsId() {
-        return herosStarsId;
+    public Integer getHeroStarsId() {
+        return heroStarsId;
     }
 
-    public void setHerosStarsId(Integer herosStarsId) {
-        this.herosStarsId = herosStarsId;
+    public void setHeroStarsId(Integer heroStarsId) {
+        this.heroStarsId = heroStarsId;
     }
 
     public String getHeroCharacter() {

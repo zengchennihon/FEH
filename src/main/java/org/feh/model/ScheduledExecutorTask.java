@@ -1,6 +1,6 @@
 package org.feh.model;
 
-public class TimerTaskModel {
+public class ScheduledExecutorTask {
     private Integer id;
 
     private String clazz;

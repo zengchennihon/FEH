@@ -1,9 +1,6 @@
 package org.feh.dao;
 
-import java.util.List;
-
 import org.feh.model.Hero;
-import org.feh.model.vo.HeroAllInfoVo;
 
 public interface HeroMapper {
     int deleteByPrimaryKey(Integer id);
@@ -19,8 +16,4 @@ public interface HeroMapper {
     int updateByPrimaryKeyWithBLOBs(Hero record);
 
     int updateByPrimaryKey(Hero record);
-    
-    List<Hero> findAll();
-
-	List<HeroAllInfoVo> findAllInfoVos();
 }

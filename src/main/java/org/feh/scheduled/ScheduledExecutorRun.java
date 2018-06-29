@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit;
 import javax.annotation.Resource;
 
 import org.apache.log4j.Logger;
-import org.feh.model.TimerTaskModel;
+import org.feh.model.ScheduledExecutorTask;
 import org.feh.service.TimerTaskModelService;
 import org.springframework.stereotype.Component;
 
@@ -26,7 +26,7 @@ public class ScheduledExecutorRun {
 	private Logger logger = Logger.getLogger(this.getClass());
 
 	public void init() {
-		List<TimerTaskModel> timerTaskModels = modelService.findAllClazzNotNull();
+		List<ScheduledExecutorTask> timerTaskModels = modelService.findAllClazzNotNull();
 		ScheduledExecutorService scheduled = Executors.newScheduledThreadPool(timerTaskModels.size());
 		timerTaskModels.forEach(m -> {
 			String _clazz = m.getClazz();
@@ -57,10 +57,10 @@ public class ScheduledExecutorRun {
 		});
 	}
 
-	private void setTaskTime(TimerTaskModel m) {
-		Integer hour = m.getFirstH();
-		Integer min = m.getFirstM();
-		Integer sec = m.getFirstS();
+	private void setTaskTime(ScheduledExecutorTask task) {
+		Integer hour = task.getFirstH();
+		Integer min = task.getFirstM();
+		Integer sec = task.getFirstS();
 		firstTime = 1l;
 		if(hour != null && hour != 0) {
 			firstTime *= hour * 60 * 60;
@@ -73,16 +73,16 @@ public class ScheduledExecutorRun {
 		}
 		long per = 1l;
 		boolean flag = false;
-		if(m.getCycleH() != null && m.getCycleH() != 0) {
-			per *= m.getCycleH() * 60 * 60;
+		if(task.getCycleH() != null && task.getCycleH() != 0) {
+			per *= task.getCycleH() * 60 * 60;
 			flag = true;
 		}
-		if(m.getCycleM() != null && m.getCycleM() != 0) {
-			per *= m.getCycleM() * 60;
+		if(task.getCycleM() != null && task.getCycleM() != 0) {
+			per *= task.getCycleM() * 60;
 			flag = true;
 		}
-		if(m.getCycleS() != null && m.getCycleS() != 0) {
-			per *= m.getCycleS();
+		if(task.getCycleS() != null && task.getCycleS() != 0) {
+			per *= task.getCycleS();
 			flag = true;
 		}
 		if(flag)
