@@ -15,7 +15,7 @@ import org.feh.service.TimerTaskModelService;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ResolveHerosTimer {
+public class ScheduledExecutorRun {
 
 	@Resource
 	private TimerTaskModelService modelService;
