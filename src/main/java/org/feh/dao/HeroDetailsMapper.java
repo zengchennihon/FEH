@@ -1,5 +1,9 @@
 package org.feh.dao;
 
+import java.util.List;
+import java.util.Set;
+
+import org.apache.ibatis.annotations.Param;
 import org.feh.model.HeroDetails;
 
 public interface HeroDetailsMapper {
@@ -14,4 +18,13 @@ public interface HeroDetailsMapper {
     int updateByPrimaryKeySelective(HeroDetails record);
 
     int updateByPrimaryKey(HeroDetails record);
+
+	List<HeroDetails> findByStarsIdsList(List<Integer> starsIds);
+
+	List<HeroDetails> findByStarsIdsSet(@Param("starsIds") Set<Integer> starsIds);
+
+	int insertByList(List<Integer> insertList);
+
+	int updateByList(List<Integer> updateList);
+
 }

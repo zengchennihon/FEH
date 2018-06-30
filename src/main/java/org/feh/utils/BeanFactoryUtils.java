@@ -1,21 +1,26 @@
 package org.feh.utils;
 
-import org.apache.poi.ss.formula.functions.T;
+import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.FileSystemXmlApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 
-public class BeanFactoryUtils {
+public class BeanFactoryUtils implements ApplicationContextAware {
 	
-	@SuppressWarnings({ "unchecked", "resource", "hiding" })
+	private static ApplicationContext _applicationContext;
+
+	@Override
+	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+		_applicationContext = applicationContext;
+	}
+
+	@SuppressWarnings("unchecked")
 	public static <T> T getBean(Class<?> clazz) {
-		ApplicationContext context = new FileSystemXmlApplicationContext(BeanFactoryUtils.class.getResource("/spring/spring-mvc.xml").toString());
-        return (T) context.getBean(clazz);
+		return (T) _applicationContext.getBean(clazz);
 	}
-	
-	@SuppressWarnings({ "unchecked", "resource", "hiding" })
+
+	@SuppressWarnings("unchecked")
 	public static <T> T getBean(String name) {
-		ApplicationContext context = new FileSystemXmlApplicationContext(BeanFactoryUtils.class.getResource("/spring/spring-mvc.xml").toString());
-        return (T) context.getBean(name);
+		return (T) _applicationContext.getBean(name);
 	}
-	
+
 }

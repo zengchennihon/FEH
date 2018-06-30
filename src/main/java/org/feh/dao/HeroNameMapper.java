@@ -14,4 +14,6 @@ public interface HeroNameMapper {
     int updateByPrimaryKeySelective(HeroName record);
 
     int updateByPrimaryKey(HeroName record);
+
+	HeroName findByHeroId(Integer heroId);
 }

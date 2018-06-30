@@ -46,7 +46,7 @@ public class HerosServiceImpl implements HeroService {
 	}
 
 	@Override
-	public boolean save(Hero hero) {
+	public boolean saveOrUpdate(Hero hero) {
 		int i = 0;
 		if(hero.getId() != null) {
 			i = heroMapper.updateByPrimaryKeySelective(hero);
@@ -60,6 +60,12 @@ public class HerosServiceImpl implements HeroService {
 	public Hero findById(Integer id) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public Hero findByAid(String aid) {
+		Hero hero = heroMapper.findByAid(aid);
+		return hero;
 	}
 
 }

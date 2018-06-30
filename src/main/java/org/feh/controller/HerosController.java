@@ -23,7 +23,7 @@ import com.google.gson.Gson;
 public class HerosController {
 	
 	@Resource
-	private HeroService herosService;
+	private HeroService heroService;
 	
 	private Gson gson = new Gson();
 	
@@ -32,7 +32,7 @@ public class HerosController {
 	@RequestMapping(value = "/findAllHeros")
 	@ResponseBody
 	public ResponseEntity<Result> findAllHeros(){
-		List<HeroAllInfoVo> infoVos = herosService.findHerosAllInfoVos();
+		List<HeroAllInfoVo> infoVos = heroService.findHerosAllInfoVos();
 		return ResponseEntity.ok(Result.result(0, infoVos));
 	}
 	

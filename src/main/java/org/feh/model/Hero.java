@@ -3,6 +3,8 @@ package org.feh.model;
 public class Hero {
     private Integer id;
 
+    private String aid;
+
     private Byte gender;
 
     private String routine;
@@ -23,6 +25,14 @@ public class Hero {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getAid() {
+        return aid;
+    }
+
+    public void setAid(String aid) {
+        this.aid = aid;
     }
 
     public Byte getGender() {

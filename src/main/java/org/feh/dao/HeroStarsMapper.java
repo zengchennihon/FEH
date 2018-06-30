@@ -1,5 +1,7 @@
 package org.feh.dao;
 
+import java.util.List;
+
 import org.feh.model.HeroStars;
 
 public interface HeroStarsMapper {
@@ -14,4 +16,6 @@ public interface HeroStarsMapper {
     int updateByPrimaryKeySelective(HeroStars record);
 
     int updateByPrimaryKey(HeroStars record);
+
+	List<HeroStars> findByHeroId(Integer heroId);
 }

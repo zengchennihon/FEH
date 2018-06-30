@@ -7,6 +7,8 @@ public class HeroStars {
 
     private Byte stars;
 
+    private Boolean equipment;
+
     public Integer getId() {
         return id;
     }
@@ -29,5 +31,13 @@ public class HeroStars {
 
     public void setStars(Byte stars) {
         this.stars = stars;
+    }
+
+    public Boolean getEquipment() {
+        return equipment;
+    }
+
+    public void setEquipment(Boolean equipment) {
+        this.equipment = equipment;
     }
 }

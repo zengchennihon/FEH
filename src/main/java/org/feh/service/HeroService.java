@@ -19,8 +19,15 @@ public interface HeroService {
 	
 	public List<Hero> findAllHeros();
 	
-	public boolean save(Hero hero);
+	public boolean saveOrUpdate(Hero hero);
 	
 	public Hero findById(Integer id);
+
+	/**
+	 * aid 头像id
+	 * @param aid
+	 * @return
+	 */
+	public Hero findByAid(String aid);
 	
 }
