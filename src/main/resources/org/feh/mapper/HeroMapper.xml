@@ -7,60 +7,46 @@
 		<result column="gender" jdbcType="TINYINT" property="gender" />
 		<result column="routine" jdbcType="VARCHAR" property="routine" />
 		<result column="battle" jdbcType="VARCHAR" property="battle" />
-		<result column="upanishad" jdbcType="VARCHAR"
-			property="upanishad" />
-		<result column="serious_injury" jdbcType="VARCHAR"
-			property="seriousInjury" />
-		<result column="movement_type" jdbcType="VARCHAR"
-			property="movementType" />
+		<result column="upanishad" jdbcType="VARCHAR" property="upanishad" />
+		<result column="serious_injury" jdbcType="VARCHAR" property="seriousInjury" />
+		<result column="movement_type" jdbcType="VARCHAR" property="movementType" />
 	</resultMap>
-	<resultMap extends="BaseResultMap" id="ResultMapWithBLOBs"
-		type="org.feh.model.Hero">
-		<result column="head_portrait" jdbcType="LONGVARBINARY"
-			property="headPortrait" />
+	<resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="org.feh.model.Hero">
+		<result column="head_portrait" jdbcType="LONGVARBINARY" property="headPortrait" />
 	</resultMap>
-	<resultMap id="AllInfoMap"
-		type="org.feh.model.vo.HeroAllInfoVo">
+	<resultMap id="AllInfoMap" type="org.feh.model.vo.HeroAllInfoVo">
 		<collection property="hero" ofType="org.feh.model.Hero">
 			<id column="id" jdbcType="INTEGER" property="id" />
 			<result column="aid" jdbcType="VARCHAR" property="aid" />
 			<result column="gender" jdbcType="TINYINT" property="gender" />
 			<result column="routine" jdbcType="VARCHAR" property="routine" />
 			<result column="battle" jdbcType="VARCHAR" property="battle" />
-			<result column="upanishad" jdbcType="VARCHAR"
-				property="upanishad" />
-			<result column="serious_injury" jdbcType="VARCHAR"
-				property="seriousInjury" />
-			<result column="head_portrait" jdbcType="LONGVARBINARY"
-				property="headPortrait" />
+			<result column="upanishad" jdbcType="VARCHAR" property="upanishad" />
+			<result column="serious_injury" jdbcType="VARCHAR" property="seriousInjury" />
+			<result column="head_portrait" jdbcType="LONGVARBINARY" property="headPortrait" />
 		</collection>
-		<collection property="heroName"
-			ofType="org.feh.model.HeroName">
+		<collection property="heroName" ofType="org.feh.model.HeroName">
 			<id column="id" jdbcType="INTEGER" property="id" />
 			<result column="hero_id" jdbcType="INTEGER" property="heroId" />
 			<result column="name_cn" jdbcType="VARCHAR" property="nameCn" />
 			<result column="name_jp" jdbcType="VARCHAR" property="nameJp" />
 			<result column="name_en" jdbcType="VARCHAR" property="nameEn" />
 		</collection>
-		<collection property="heroDetails"
-			ofType="org.feh.model.HeroDetails" javaType="java.util.List">
+		<collection property="heroDetails" ofType="org.feh.model.HeroDetails" javaType="java.util.List">
 			<id column="id" jdbcType="INTEGER" property="id" />
-			<result column="hero_stars_id" jdbcType="INTEGER"
-				property="heroStarsId" />
-			<result column="hero_character" jdbcType="VARCHAR"
-				property="heroCharacter" />
+			<result column="hero_stars_id" jdbcType="INTEGER" property="heroStarsId" />
+			<result column="hero_character" jdbcType="VARCHAR" property="heroCharacter" />
 			<result column="hp" jdbcType="INTEGER" property="hp" />
 			<result column="atk" jdbcType="INTEGER" property="atk" />
 			<result column="spd" jdbcType="INTEGER" property="spd" />
 			<result column="def" jdbcType="INTEGER" property="def" />
 			<result column="res" jdbcType="INTEGER" property="res" />
 		</collection>
-		<collection property="heroStars"
-			ofType="org.feh.model.HeroStars" javaType="java.util.List">
+		<collection property="heroStars" ofType="org.feh.model.HeroStars" javaType="java.util.List">
 			<id column="id" jdbcType="INTEGER" property="id" />
 			<result column="hero_id" jdbcType="INTEGER" property="heroId" />
 			<result column="stars" jdbcType="TINYINT" property="stars" />
-    		<result column="equipment" jdbcType="BIT" property="equipment" />
+			<result column="equipment" jdbcType="BIT" property="equipment" />
 		</collection>
 	</resultMap>
 
@@ -71,7 +57,8 @@
 		hd.id,
 		hd.hero_stars_id, hd.hero_character, hd.hp, hd.atk, hd.spd, hd.def,
 		hd.res,
-		hn.id, hn.hero_id, hn.name_cn, hn.name_jp,
+		hn.id, hn.hero_id, hn.name_cn,
+		hn.name_jp,
 		hn.name_en,
 		hs.id,
 		hs.hero_id, hs.stars, hs.equipment
@@ -84,8 +71,7 @@
 	<sql id="Blob_Column_List">
 		head_portrait
 	</sql>
-	<select id="selectByPrimaryKey"
-		parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+	<select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
 		select
 		<include refid="Base_Column_List" />
 		,
@@ -93,8 +79,7 @@
 		from hero
 		where id = #{id,jdbcType=INTEGER}
 	</select>
-	<delete id="deleteByPrimaryKey"
-		parameterType="java.lang.Integer">
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
 		delete from hero
 		where id = #{id,jdbcType=INTEGER}
 	</delete>
@@ -102,7 +87,8 @@
 		insert into hero (id, aid,
 		gender,
 		routine, battle, upanishad,
-		serious_injury, movement_type,
+		serious_injury,
+		movement_type,
 		head_portrait
 		)
 		values (#{id,jdbcType=INTEGER}, #{aid,jdbcType=VARCHAR},
@@ -113,8 +99,7 @@
 		#{headPortrait,jdbcType=LONGVARBINARY}
 		)
 	</insert>
-	<insert id="insertSelective" parameterType="org.feh.model.Hero"
-		useGeneratedKeys="true" keyProperty="id">
+	<insert id="insertSelective" parameterType="org.feh.model.Hero" useGeneratedKeys="true" keyProperty="id">
 		insert into hero
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="id != null">
@@ -175,8 +160,7 @@
 			</if>
 		</trim>
 	</insert>
-	<update id="updateByPrimaryKeySelective"
-		parameterType="org.feh.model.Hero">
+	<update id="updateByPrimaryKeySelective" parameterType="org.feh.model.Hero">
 		update hero
 		<set>
 			<if test="aid != null">
@@ -206,8 +190,7 @@
 		</set>
 		where id = #{id,jdbcType=INTEGER}
 	</update>
-	<update id="updateByPrimaryKeyWithBLOBs"
-		parameterType="org.feh.model.Hero">
+	<update id="updateByPrimaryKeyWithBLOBs" parameterType="org.feh.model.Hero">
 		update hero
 		set aid = #{aid,jdbcType=VARCHAR},
 		gender =
@@ -225,8 +208,7 @@
 		where id =
 		#{id,jdbcType=INTEGER}
 	</update>
-	<update id="updateByPrimaryKey"
-		parameterType="org.feh.model.Hero">
+	<update id="updateByPrimaryKey" parameterType="org.feh.model.Hero">
 		update hero
 		set aid = #{aid,jdbcType=VARCHAR},
 		gender =
@@ -256,11 +238,11 @@
 		hero h, hero_details hd, hero_name hn, hero_stars hs
 		where
 		hs.id =
-		hd.hero_stars_id and h.id = hn.hero_id and h.id = hs.hero_id
+		hd.hero_stars_id and h.id = hn.hero_id and h.id =
+		hs.hero_id
 		limit 0,5
 	</select>
-	<select id="findByAid" parameterType="java.lang.String"
-		resultType="org.feh.model.Hero">
+	<select id="findByAid" parameterType="java.lang.String" resultType="org.feh.model.Hero">
 		select
 		<include refid="Base_Column_List" />
 		,
