@@ -167,11 +167,12 @@
 		    <version>${jackson.version}</version>
 		</dependency>
 		
-		<dependency>
+		<!-- 引入此包会返回xml -->
+		<!-- <dependency>
 		    <groupId>com.fasterxml.jackson.dataformat</groupId>
 		    <artifactId>jackson-dataformat-xml</artifactId>
 		    <version>${jackson.version}</version>
-		</dependency>
+		</dependency> -->
 		
 		<!-- generator -->
 		<dependency>

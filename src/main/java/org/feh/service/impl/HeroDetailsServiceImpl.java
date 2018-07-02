@@ -40,22 +40,26 @@ public class HeroDetailsServiceImpl implements HeroDetailsService {
 	}
 
 	@Override
-	public Integer saveOrUpdate(HeroDetails... details) {
-		List<Integer> insertList = new ArrayList<>();
-		List<Integer> updateList = new ArrayList<>();
+	public Integer saveOrUpdate(HeroDetails ... details) {
+		List<HeroDetails> insertList = new ArrayList<>();
+		List<HeroDetails> updateList = new ArrayList<>();
 		for (HeroDetails hd : details) {
 			if(hd.getId() == null) {
-				insertList.add(hd.getId());
+				insertList.add(hd);
 			} else {
-				updateList.add(hd.getId());
+				updateList.add(hd);
 			}
 		}
 		int num = 0;
-		if(insertList.size() > 0) {
-			num += heroDetailsMapper.insertByList(insertList);
-		}
-		if(updateList.size() > 0) {
-			num += heroDetailsMapper.updateByList(updateList);
+		try {
+			if(insertList.size() > 0) {
+				num += heroDetailsMapper.insertByList(insertList);
+			}
+			if(updateList.size() > 0) {
+				num += heroDetailsMapper.updateByList(updateList);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		return num;
 	}
@@ -63,8 +67,11 @@ public class HeroDetailsServiceImpl implements HeroDetailsService {
 	@Override
 	public Integer saveOrUpdate(List<HeroDetails> details) {
 		HeroDetails _details[] = new HeroDetails[details.size()];
-		saveOrUpdate(details.toArray(_details));
-		return null;
+		details.toArray(_details);
+		if(_details.length == 0) 
+			return 0;
+		int num = saveOrUpdate(_details);
+		return num;
 	}
 
 }

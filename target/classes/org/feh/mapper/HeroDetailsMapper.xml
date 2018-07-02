@@ -173,18 +173,66 @@
 		values
 		<foreach collection="list" index="idx" item="d" open=""
 			separator="," close="">
-			(#{heroStarsId}, #{heroCharacter}, #{hp}, #{atk}, #{spd}, #{def}, #{res})
+			(#{d.heroStarsId}, #{d.heroCharacter}, #{d.hp}, #{d.atk}, #{d.spd}, #{d.def}, #{d.res})
 		</foreach>
 	</insert>
 	<update id="updateByList">
-		update hero_details set
-		hero_stars_id = #{heroStarsId,jdbcType=INTEGER},
-		hero_character = #{heroCharacter,jdbcType=VARCHAR},
-		hp = #{hp,jdbcType=INTEGER},
-		atk = #{atk,jdbcType=INTEGER},
-		spd = #{spd,jdbcType=INTEGER}, def = #{def,jdbcType=INTEGER},
-		res = #{res,jdbcType=INTEGER}
-		where id = #{id,jdbcType=INTEGER}
+		update hero_details 
+		<trim prefix="set" suffixOverrides=",">
+			<trim prefix="hero_stars_id = case " suffix="end, ">
+				<foreach collection="list" index="i" item="d">
+					<if test="d.heroStarsId != null">
+						when id = #{d.id} then #{d.heroStarsId}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="hero_character = case" suffix="end, ">
+				<foreach collection="list" index="i" item="d">
+					<if test="d.heroCharacter != null">
+						when id = #{d.id} then #{d.heroCharacter}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="hp = case" suffix="end, ">
+				<foreach collection="list" index="i" item="d">
+					<if test="d.hp != null">
+						when id = #{d.id} then #{d.hp}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="atk = case" suffix="end, ">
+				<foreach collection="list" index="i" item="d">
+					<if test="d.atk != null">
+						when id = #{d.id} then #{d.atk}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="spd = case" suffix="end, ">
+				<foreach collection="list" index="i" item="d">
+					<if test="d.spd != null">
+						when id = #{d.id} then #{d.spd}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="def = case" suffix="end, ">
+				<foreach collection="list" index="i" item="d">
+					<if test="d.def != null">
+						when id = #{d.id} then #{d.def}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="res = case" suffix="end, ">
+				<foreach collection="list" index="i" item="d">
+					<if test="d.res != null">
+						when id = #{d.id} then #{d.res}
+					</if>
+				</foreach>
+			</trim>
+		</trim>
+		where 
+		<foreach collection="list" index="i" item="d" open="(" separator="," close=")">
+			id = #{id}
+		</foreach>
 	</update>
 
 

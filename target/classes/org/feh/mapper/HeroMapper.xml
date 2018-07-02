@@ -22,7 +22,7 @@
 	<resultMap id="AllInfoMap"
 		type="org.feh.model.vo.HeroAllInfoVo">
 		<collection property="hero" ofType="org.feh.model.Hero">
-			<result column="id" jdbcType="INTEGER" property="id" />
+			<id column="id" jdbcType="INTEGER" property="id" />
 			<result column="aid" jdbcType="VARCHAR" property="aid" />
 			<result column="gender" jdbcType="TINYINT" property="gender" />
 			<result column="routine" jdbcType="VARCHAR" property="routine" />
@@ -36,15 +36,15 @@
 		</collection>
 		<collection property="heroName"
 			ofType="org.feh.model.HeroName">
-			<result column="id" jdbcType="INTEGER" property="id" />
+			<id column="id" jdbcType="INTEGER" property="id" />
 			<result column="hero_id" jdbcType="INTEGER" property="heroId" />
 			<result column="name_cn" jdbcType="VARCHAR" property="nameCn" />
 			<result column="name_jp" jdbcType="VARCHAR" property="nameJp" />
 			<result column="name_en" jdbcType="VARCHAR" property="nameEn" />
 		</collection>
 		<collection property="heroDetails"
-			ofType="org.feh.model.HeroDetails">
-			<result column="id" jdbcType="INTEGER" property="id" />
+			ofType="org.feh.model.HeroDetails" javaType="java.util.List">
+			<id column="id" jdbcType="INTEGER" property="id" />
 			<result column="hero_stars_id" jdbcType="INTEGER"
 				property="heroStarsId" />
 			<result column="hero_character" jdbcType="VARCHAR"
@@ -56,8 +56,8 @@
 			<result column="res" jdbcType="INTEGER" property="res" />
 		</collection>
 		<collection property="heroStars"
-			ofType="org.feh.model.HeroStars">
-			<result column="id" jdbcType="INTEGER" property="id" />
+			ofType="org.feh.model.HeroStars" javaType="java.util.List">
+			<id column="id" jdbcType="INTEGER" property="id" />
 			<result column="hero_id" jdbcType="INTEGER" property="heroId" />
 			<result column="stars" jdbcType="TINYINT" property="stars" />
     		<result column="equipment" jdbcType="BIT" property="equipment" />
@@ -257,6 +257,7 @@
 		where
 		hs.id =
 		hd.hero_stars_id and h.id = hn.hero_id and h.id = hs.hero_id
+		limit 0,5
 	</select>
 	<select id="findByAid" parameterType="java.lang.String"
 		resultType="org.feh.model.Hero">

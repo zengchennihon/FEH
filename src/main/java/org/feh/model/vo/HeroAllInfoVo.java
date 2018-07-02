@@ -1,5 +1,7 @@
 package org.feh.model.vo;
 
+import java.util.List;
+
 import org.feh.model.Hero;
 import org.feh.model.HeroDetails;
 import org.feh.model.HeroName;
@@ -11,9 +13,9 @@ public class HeroAllInfoVo {
 
 	private HeroName heroName;
 
-	private HeroDetails heroDetails;
+	private List<HeroDetails> heroDetails;
 
-	private HeroStars heroStars;
+	private List<HeroStars> heroStars;
 
 	public Hero getHero() {
 		return hero;
@@ -31,19 +33,19 @@ public class HeroAllInfoVo {
 		this.heroName = heroName;
 	}
 
-	public HeroDetails getHeroDetails() {
+	public List<HeroDetails> getHeroDetails() {
 		return heroDetails;
 	}
 
-	public void setHeroDetails(HeroDetails heroDetails) {
+	public void setHeroDetails(List<HeroDetails> heroDetails) {
 		this.heroDetails = heroDetails;
 	}
 
-	public HeroStars getHeroStars() {
+	public List<HeroStars> getHeroStars() {
 		return heroStars;
 	}
 
-	public void setHeroStars(HeroStars heroStars) {
+	public void setHeroStars(List<HeroStars> heroStars) {
 		this.heroStars = heroStars;
 	}
 

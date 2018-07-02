@@ -6,9 +6,10 @@
 		<result column="hero_id" jdbcType="INTEGER" property="heroId" />
 		<result column="stars" jdbcType="TINYINT" property="stars" />
 		<result column="equipment" jdbcType="BIT" property="equipment" />
+		<result column="level" jdbcType="INTEGER" property="level" />
 	</resultMap>
 	<sql id="Base_Column_List">
-		id, hero_id, stars, equipment
+		id, hero_id, stars, equipment, level
 	</sql>
 	<select id="selectByPrimaryKey"
 		parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -24,10 +25,10 @@
 	</delete>
 	<insert id="insert" parameterType="org.feh.model.HeroStars">
 		insert into hero_stars (id, hero_id, stars,
-		equipment)
+		equipment, level)
 		values (#{id,jdbcType=INTEGER}, #{heroId,jdbcType=INTEGER},
 		#{stars,jdbcType=TINYINT},
-		#{equipment,jdbcType=BIT})
+		#{equipment,jdbcType=BIT}, #{level})
 	</insert>
 	<insert id="insertSelective"
 		parameterType="org.feh.model.HeroStars" useGeneratedKeys="true" keyProperty="id">
@@ -45,6 +46,9 @@
 			<if test="equipment != null">
 				equipment,
 			</if>
+			<if test="level != null">
+				level,
+			</if>
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="id != null">
@@ -58,6 +62,9 @@
 			</if>
 			<if test="equipment != null">
 				#{equipment,jdbcType=BIT},
+			</if>
+			<if test="level != null">
+				#{level},
 			</if>
 		</trim>
 	</insert>
@@ -74,6 +81,9 @@
 			<if test="equipment != null">
 				equipment = #{equipment,jdbcType=BIT},
 			</if>
+			<if test="level != null">
+				level = #{level},
+			</if>
 		</set>
 		where id = #{id,jdbcType=INTEGER}
 	</update>
@@ -83,6 +93,7 @@
 		set hero_id = #{heroId,jdbcType=INTEGER},
 		stars = #{stars,jdbcType=TINYINT},
 		equipment = #{equipment,jdbcType=BIT}
+		level = #{level}
 		where id = #{id,jdbcType=INTEGER}
 	</update>
 	

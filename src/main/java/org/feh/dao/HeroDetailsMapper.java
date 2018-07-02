@@ -23,8 +23,8 @@ public interface HeroDetailsMapper {
 
 	List<HeroDetails> findByStarsIdsSet(@Param("starsIds") Set<Integer> starsIds);
 
-	int insertByList(List<Integer> insertList);
+	int insertByList(List<HeroDetails> insertList);
 
-	int updateByList(List<Integer> updateList);
+	int updateByList(List<HeroDetails> updateList);
 
 }
