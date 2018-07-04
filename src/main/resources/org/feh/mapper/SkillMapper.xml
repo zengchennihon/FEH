@@ -4,12 +4,13 @@
   <resultMap id="BaseResultMap" type="org.feh.model.Skill">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="level" jdbcType="INTEGER" property="level" />
   </resultMap>
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="org.feh.model.Skill">
     <result column="icon" jdbcType="LONGVARBINARY" property="icon" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, type
+    id, type, level
   </sql>
   <sql id="Blob_Column_List">
     icon
@@ -27,10 +28,10 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="org.feh.model.Skill">
-    insert into skill (id, type, icon
-      )
-    values (#{id,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, #{icon,jdbcType=LONGVARBINARY}
-      )
+    insert into skill (id, type, level, 
+      icon)
+    values (#{id,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, #{level,jdbcType=INTEGER}, 
+      #{icon,jdbcType=LONGVARBINARY})
   </insert>
   <insert id="insertSelective" parameterType="org.feh.model.Skill">
     insert into skill
@@ -40,6 +41,9 @@
       </if>
       <if test="type != null">
         type,
+      </if>
+      <if test="level != null">
+        level,
       </if>
       <if test="icon != null">
         icon,
@@ -52,6 +56,9 @@
       <if test="type != null">
         #{type,jdbcType=INTEGER},
       </if>
+      <if test="level != null">
+        #{level,jdbcType=INTEGER},
+      </if>
       <if test="icon != null">
         #{icon,jdbcType=LONGVARBINARY},
       </if>
@@ -63,6 +70,9 @@
       <if test="type != null">
         type = #{type,jdbcType=INTEGER},
       </if>
+      <if test="level != null">
+        level = #{level,jdbcType=INTEGER},
+      </if>
       <if test="icon != null">
         icon = #{icon,jdbcType=LONGVARBINARY},
       </if>
@@ -72,12 +82,14 @@
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="org.feh.model.Skill">
     update skill
     set type = #{type,jdbcType=INTEGER},
+      level = #{level,jdbcType=INTEGER},
       icon = #{icon,jdbcType=LONGVARBINARY}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="org.feh.model.Skill">
     update skill
-    set type = #{type,jdbcType=INTEGER}
+    set type = #{type,jdbcType=INTEGER},
+      level = #{level,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

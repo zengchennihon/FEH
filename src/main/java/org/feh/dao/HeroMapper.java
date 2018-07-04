@@ -21,8 +21,8 @@ public interface HeroMapper {
     int updateByPrimaryKey(Hero record);
 
 	List<Hero> findAll();
-	
+
 	List<HeroAllInfoVo> findAllInfoVos();
-	
+
 	Hero findByAid(String aid);
 }

@@ -48,17 +48,16 @@
 	<script type="text/javascript">
 		~function() {
 			var url = "${basePath }feh/findAllHeros.action";
-			var _url = "${basePath }feh/testStr.action";
-			
-			var _json = {"skillId": 1, "hp": 2};
 			
 			$.ajax({
-				url: _url,
+				url: url,
 				type: "post",
-				data: JSON.stringify(_json),
-				contentType: "application/json;charset=utf-8",
+				data: {},
+				//contentType: "application/json;charset=utf-8",
 				success: function(res){
+					var _data = res.data;
 					console.log(res);
+					console.log(_data);
 				}
 				
 			});

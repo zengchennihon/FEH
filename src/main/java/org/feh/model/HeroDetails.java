@@ -5,6 +5,8 @@ public class HeroDetails {
 
     private Integer heroStarsId;
 
+    private Integer level;
+
     private String heroCharacter;
 
     private Integer hp;
@@ -31,6 +33,14 @@ public class HeroDetails {
 
     public void setHeroStarsId(Integer heroStarsId) {
         this.heroStarsId = heroStarsId;
+    }
+
+    public Integer getLevel() {
+        return level;
+    }
+
+    public void setLevel(Integer level) {
+        this.level = level;
     }
 
     public String getHeroCharacter() {

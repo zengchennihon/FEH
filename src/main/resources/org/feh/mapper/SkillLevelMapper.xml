@@ -5,9 +5,13 @@
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="skill_id" jdbcType="INTEGER" property="skillId" />
     <result column="hp" jdbcType="INTEGER" property="hp" />
+    <result column="atk" jdbcType="INTEGER" property="atk" />
+    <result column="spd" jdbcType="INTEGER" property="spd" />
+    <result column="def" jdbcType="INTEGER" property="def" />
+    <result column="res" jdbcType="INTEGER" property="res" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, skill_id, hp
+    id, skill_id, hp, atk, spd, def, res
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -20,9 +24,11 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="org.feh.model.SkillLevel">
-    insert into skill_level (id, skill_id, hp
+    insert into skill_level (id, skill_id, hp, 
+      atk, spd, def, res
       )
-    values (#{id,jdbcType=INTEGER}, #{skillId,jdbcType=INTEGER}, #{hp,jdbcType=INTEGER}
+    values (#{id,jdbcType=INTEGER}, #{skillId,jdbcType=INTEGER}, #{hp,jdbcType=INTEGER}, 
+      #{atk,jdbcType=INTEGER}, #{spd,jdbcType=INTEGER}, #{def,jdbcType=INTEGER}, #{res,jdbcType=INTEGER}
       )
   </insert>
   <insert id="insertSelective" parameterType="org.feh.model.SkillLevel">
@@ -37,6 +43,18 @@
       <if test="hp != null">
         hp,
       </if>
+      <if test="atk != null">
+        atk,
+      </if>
+      <if test="spd != null">
+        spd,
+      </if>
+      <if test="def != null">
+        def,
+      </if>
+      <if test="res != null">
+        res,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -47,6 +65,18 @@
       </if>
       <if test="hp != null">
         #{hp,jdbcType=INTEGER},
+      </if>
+      <if test="atk != null">
+        #{atk,jdbcType=INTEGER},
+      </if>
+      <if test="spd != null">
+        #{spd,jdbcType=INTEGER},
+      </if>
+      <if test="def != null">
+        #{def,jdbcType=INTEGER},
+      </if>
+      <if test="res != null">
+        #{res,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -59,13 +89,29 @@
       <if test="hp != null">
         hp = #{hp,jdbcType=INTEGER},
       </if>
+      <if test="atk != null">
+        atk = #{atk,jdbcType=INTEGER},
+      </if>
+      <if test="spd != null">
+        spd = #{spd,jdbcType=INTEGER},
+      </if>
+      <if test="def != null">
+        def = #{def,jdbcType=INTEGER},
+      </if>
+      <if test="res != null">
+        res = #{res,jdbcType=INTEGER},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="org.feh.model.SkillLevel">
     update skill_level
     set skill_id = #{skillId,jdbcType=INTEGER},
-      hp = #{hp,jdbcType=INTEGER}
+      hp = #{hp,jdbcType=INTEGER},
+      atk = #{atk,jdbcType=INTEGER},
+      spd = #{spd,jdbcType=INTEGER},
+      def = #{def,jdbcType=INTEGER},
+      res = #{res,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

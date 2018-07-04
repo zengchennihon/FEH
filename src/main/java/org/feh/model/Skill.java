@@ -5,6 +5,8 @@ public class Skill {
 
     private Integer type;
 
+    private Integer level;
+
     private byte[] icon;
 
     public Integer getId() {
@@ -21,6 +23,14 @@ public class Skill {
 
     public void setType(Integer type) {
         this.type = type;
+    }
+
+    public Integer getLevel() {
+        return level;
+    }
+
+    public void setLevel(Integer level) {
+        this.level = level;
     }
 
     public byte[] getIcon() {

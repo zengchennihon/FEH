@@ -3,7 +3,6 @@ package org.feh.dao;
 import java.util.List;
 import java.util.Set;
 
-import org.apache.ibatis.annotations.Param;
 import org.feh.model.HeroDetails;
 
 public interface HeroDetailsMapper {
@@ -21,10 +20,9 @@ public interface HeroDetailsMapper {
 
 	List<HeroDetails> findByStarsIdsList(List<Integer> starsIds);
 
-	List<HeroDetails> findByStarsIdsSet(@Param("starsIds") Set<Integer> starsIds);
+	List<HeroDetails> findByStarsIdsSet(Set<Integer> starsIds);
 
 	int insertByList(List<HeroDetails> insertList);
 
 	int updateByList(List<HeroDetails> updateList);
-
 }
