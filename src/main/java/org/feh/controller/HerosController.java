@@ -26,7 +26,7 @@ public class HerosController {
 	@ResponseBody
 	public ResponseEntity<Result> findAllHeros(){
 		List<HeroAllInfoVo> infoVos = heroService.findHerosAllInfoVos();
-		return ResponseEntity.ok(Result.result(0, infoVos));
+		return ResponseEntity.ok(Result.result(infoVos));
 	}
 	
 }

@@ -19,6 +19,14 @@ public class Result {
 		}
 	}
 	
+	public static Result result(Object data) {
+		result.setCode(0);
+		if(data != null) {
+			result.setData(data);
+		}
+		return result;
+	}
+	
 	public static Result result(Integer code, Object data) {
 		result.setCode(code);
 		if(data != null) {
