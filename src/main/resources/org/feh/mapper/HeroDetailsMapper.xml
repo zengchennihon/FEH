@@ -1,139 +1,188 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.feh.dao.HeroDetailsMapper">
-  <resultMap id="BaseResultMap" type="org.feh.model.HeroDetails">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="hero_stars_id" jdbcType="INTEGER" property="heroStarsId" />
-    <result column="level" jdbcType="INTEGER" property="level" />
-    <result column="hero_character" jdbcType="VARCHAR" property="heroCharacter" />
-    <result column="hp" jdbcType="INTEGER" property="hp" />
-    <result column="atk" jdbcType="INTEGER" property="atk" />
-    <result column="spd" jdbcType="INTEGER" property="spd" />
-    <result column="def" jdbcType="INTEGER" property="def" />
-    <result column="res" jdbcType="INTEGER" property="res" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    id, hero_stars_id, level, hero_character, hp, atk, spd, def, res
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from hero_details
-    where id = #{id,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from hero_details
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="org.feh.model.HeroDetails">
-    insert into hero_details (id, hero_stars_id, level, 
-      hero_character, hp, atk, 
-      spd, def, res)
-    values (#{id,jdbcType=INTEGER}, #{heroStarsId,jdbcType=INTEGER}, #{level,jdbcType=INTEGER}, 
-      #{heroCharacter,jdbcType=VARCHAR}, #{hp,jdbcType=INTEGER}, #{atk,jdbcType=INTEGER}, 
-      #{spd,jdbcType=INTEGER}, #{def,jdbcType=INTEGER}, #{res,jdbcType=INTEGER})
-  </insert>
-  <insert id="insertSelective" parameterType="org.feh.model.HeroDetails">
-    insert into hero_details
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="heroStarsId != null">
-        hero_stars_id,
-      </if>
-      <if test="level != null">
-        level,
-      </if>
-      <if test="heroCharacter != null">
-        hero_character,
-      </if>
-      <if test="hp != null">
-        hp,
-      </if>
-      <if test="atk != null">
-        atk,
-      </if>
-      <if test="spd != null">
-        spd,
-      </if>
-      <if test="def != null">
-        def,
-      </if>
-      <if test="res != null">
-        res,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="heroStarsId != null">
-        #{heroStarsId,jdbcType=INTEGER},
-      </if>
-      <if test="level != null">
-        #{level,jdbcType=INTEGER},
-      </if>
-      <if test="heroCharacter != null">
-        #{heroCharacter,jdbcType=VARCHAR},
-      </if>
-      <if test="hp != null">
-        #{hp,jdbcType=INTEGER},
-      </if>
-      <if test="atk != null">
-        #{atk,jdbcType=INTEGER},
-      </if>
-      <if test="spd != null">
-        #{spd,jdbcType=INTEGER},
-      </if>
-      <if test="def != null">
-        #{def,jdbcType=INTEGER},
-      </if>
-      <if test="res != null">
-        #{res,jdbcType=INTEGER},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="org.feh.model.HeroDetails">
-    update hero_details
-    <set>
-      <if test="heroStarsId != null">
-        hero_stars_id = #{heroStarsId,jdbcType=INTEGER},
-      </if>
-      <if test="level != null">
-        level = #{level,jdbcType=INTEGER},
-      </if>
-      <if test="heroCharacter != null">
-        hero_character = #{heroCharacter,jdbcType=VARCHAR},
-      </if>
-      <if test="hp != null">
-        hp = #{hp,jdbcType=INTEGER},
-      </if>
-      <if test="atk != null">
-        atk = #{atk,jdbcType=INTEGER},
-      </if>
-      <if test="spd != null">
-        spd = #{spd,jdbcType=INTEGER},
-      </if>
-      <if test="def != null">
-        def = #{def,jdbcType=INTEGER},
-      </if>
-      <if test="res != null">
-        res = #{res,jdbcType=INTEGER},
-      </if>
-    </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="org.feh.model.HeroDetails">
-    update hero_details
-    set hero_stars_id = #{heroStarsId,jdbcType=INTEGER},
-      level = #{level,jdbcType=INTEGER},
-      hero_character = #{heroCharacter,jdbcType=VARCHAR},
-      hp = #{hp,jdbcType=INTEGER},
-      atk = #{atk,jdbcType=INTEGER},
-      spd = #{spd,jdbcType=INTEGER},
-      def = #{def,jdbcType=INTEGER},
-      res = #{res,jdbcType=INTEGER}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
+	<resultMap id="BaseResultMap" type="org.feh.model.HeroDetails">
+		<id column="id" jdbcType="INTEGER" property="id" />
+		<result column="hero_stars_id" jdbcType="INTEGER" property="heroStarsId" />
+		<result column="level" jdbcType="INTEGER" property="level" />
+		<result column="hero_character" jdbcType="VARCHAR" property="heroCharacter" />
+		<result column="hp" jdbcType="INTEGER" property="hp" />
+		<result column="atk" jdbcType="INTEGER" property="atk" />
+		<result column="spd" jdbcType="INTEGER" property="spd" />
+		<result column="def" jdbcType="INTEGER" property="def" />
+		<result column="res" jdbcType="INTEGER" property="res" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, hero_stars_id, level, hero_character, hp, atk, spd, def, res
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from hero_details
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from hero_details
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="org.feh.model.HeroDetails">
+		insert into hero_details (id, hero_stars_id, level,
+		hero_character, hp, atk,
+		spd, def, res)
+		values (#{id,jdbcType=INTEGER}, #{heroStarsId,jdbcType=INTEGER}, #{level,jdbcType=INTEGER},
+		#{heroCharacter,jdbcType=VARCHAR}, #{hp,jdbcType=INTEGER}, #{atk,jdbcType=INTEGER},
+		#{spd,jdbcType=INTEGER},
+		#{def,jdbcType=INTEGER}, #{res,jdbcType=INTEGER})
+	</insert>
+	<insert id="insertSelective" parameterType="org.feh.model.HeroDetails">
+		insert into hero_details
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="heroStarsId != null">
+				hero_stars_id,
+			</if>
+			<if test="level != null">
+				level,
+			</if>
+			<if test="heroCharacter != null">
+				hero_character,
+			</if>
+			<if test="hp != null">
+				hp,
+			</if>
+			<if test="atk != null">
+				atk,
+			</if>
+			<if test="spd != null">
+				spd,
+			</if>
+			<if test="def != null">
+				def,
+			</if>
+			<if test="res != null">
+				res,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="heroStarsId != null">
+				#{heroStarsId,jdbcType=INTEGER},
+			</if>
+			<if test="level != null">
+				#{level,jdbcType=INTEGER},
+			</if>
+			<if test="heroCharacter != null">
+				#{heroCharacter,jdbcType=VARCHAR},
+			</if>
+			<if test="hp != null">
+				#{hp,jdbcType=INTEGER},
+			</if>
+			<if test="atk != null">
+				#{atk,jdbcType=INTEGER},
+			</if>
+			<if test="spd != null">
+				#{spd,jdbcType=INTEGER},
+			</if>
+			<if test="def != null">
+				#{def,jdbcType=INTEGER},
+			</if>
+			<if test="res != null">
+				#{res,jdbcType=INTEGER},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="org.feh.model.HeroDetails">
+		update hero_details
+		<set>
+			<if test="heroStarsId != null">
+				hero_stars_id = #{heroStarsId,jdbcType=INTEGER},
+			</if>
+			<if test="level != null">
+				level = #{level,jdbcType=INTEGER},
+			</if>
+			<if test="heroCharacter != null">
+				hero_character = #{heroCharacter,jdbcType=VARCHAR},
+			</if>
+			<if test="hp != null">
+				hp = #{hp,jdbcType=INTEGER},
+			</if>
+			<if test="atk != null">
+				atk = #{atk,jdbcType=INTEGER},
+			</if>
+			<if test="spd != null">
+				spd = #{spd,jdbcType=INTEGER},
+			</if>
+			<if test="def != null">
+				def = #{def,jdbcType=INTEGER},
+			</if>
+			<if test="res != null">
+				res = #{res,jdbcType=INTEGER},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="org.feh.model.HeroDetails">
+		update hero_details
+		set hero_stars_id =
+		#{heroStarsId,jdbcType=INTEGER},
+		level = #{level,jdbcType=INTEGER},
+		hero_character = #{heroCharacter,jdbcType=VARCHAR},
+		hp = #{hp,jdbcType=INTEGER},
+		atk = #{atk,jdbcType=INTEGER},
+		spd = #{spd,jdbcType=INTEGER},
+		def = #{def,jdbcType=INTEGER},
+		res = #{res,jdbcType=INTEGER}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+
+	<select id="findByStarsIdsList" parameterType="java.util.List" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from hero_details
+		where hero_stars_id in
+		<foreach collection="list" index="i" item="d" open="(" separator="," close=")">
+			#{d}
+		</foreach>
+	</select>
+	<select id="findByStarsIdsList" parameterType="java.util.Set" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from hero_details
+		where hero_stars_id in
+		<foreach collection="starsIds" index="i" item="d" open="(" separator="," close=")">
+			#{d}
+		</foreach>
+	</select>
+	<insert id="insertByList" parameterType="java.util.List">
+		insert into hero_details (hero_stars_id, level,
+		hero_character, hp, atk,
+		spd, def, res)
+		values
+		<foreach collection="list" index="i" item="d" open="(" separator="," close=")">
+			#{heroStarsId}, #{level},
+			#{heroCharacter}, #{hp},
+			#{atk}, #{spd}, #{def}, #{res}
+		</foreach>
+	</insert>
+	<update id="updateByList" parameterType="java.util.List">
+		update hero_details
+		set 
+		<foreach collection="list">
+			hero_stars_id =
+			#{heroStarsId,jdbcType=INTEGER},
+			level = #{level,jdbcType=INTEGER},
+			hero_character = #{heroCharacter,jdbcType=VARCHAR},
+			hp = #{hp,jdbcType=INTEGER},
+			atk = #{atk,jdbcType=INTEGER},
+			spd = #{spd,jdbcType=INTEGER},
+			def = #{def,jdbcType=INTEGER},
+			res = #{res,jdbcType=INTEGER}
+		</foreach>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+
 </mapper>

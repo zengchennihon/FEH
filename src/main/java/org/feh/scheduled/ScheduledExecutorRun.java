@@ -11,14 +11,14 @@ import javax.annotation.Resource;
 
 import org.apache.log4j.Logger;
 import org.feh.model.ScheduledExecutorTask;
-import org.feh.service.TimerTaskModelService;
+import org.feh.service.ScheduledExecutorTaskService;
 import org.springframework.stereotype.Component;
 
 @Component
 public class ScheduledExecutorRun {
 
 	@Resource
-	private TimerTaskModelService modelService;
+	private ScheduledExecutorTaskService taskService;
 
 	private Long firstTime;
 	private Long period;
@@ -26,35 +26,35 @@ public class ScheduledExecutorRun {
 	private Logger logger = Logger.getLogger(this.getClass());
 
 	public void init() {
-		List<ScheduledExecutorTask> timerTaskModels = modelService.findAllClazzNotNull();
+		List<ScheduledExecutorTask> timerTaskModels = taskService.findAllClazzNotNull();
 		ScheduledExecutorService scheduled = Executors.newScheduledThreadPool(timerTaskModels.size());
 		timerTaskModels.forEach(m -> {
 			String _clazz = m.getClazz();
-			logger.info("-----------------准备执行【" + _clazz + "】定时任务!-----------------");
-			setTaskTime(m);
-			if(period != null) {
-				scheduled.scheduleWithFixedDelay(()->{
-					try {
-						Class<?> clazz = Class.forName(_clazz);
-						Method _method = clazz.getDeclaredMethod("run");
-						_method.invoke(clazz.newInstance());
-					} catch (ClassNotFoundException | NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | InstantiationException e) {
-						logger.info("-----------------定时任务【" + _clazz + "】执行失败!-----------------", e);
-						e.printStackTrace();
-					}
-				}, firstTime, period, TimeUnit.SECONDS);
-			} else {
-				scheduled.schedule(()->{
-					try {
-						Class<?> clazz = Class.forName(_clazz);
-						Method _method = clazz.getDeclaredMethod("run");
-						_method.invoke(clazz.newInstance());
-					} catch (ClassNotFoundException | NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | InstantiationException e) {
-						logger.info("-----------------定时任务【" + _clazz + "】执行失败!-----------------", e);
-					}
-				}, firstTime, TimeUnit.SECONDS);
+			if(isEnable(m.getId())) {
+				logger.info("-----------------准备执行【" + _clazz + "】定时任务!-----------------");
+				if(period != null) {
+					scheduled.scheduleWithFixedDelay(()->{
+						try {
+							Class<?> clazz = Class.forName(_clazz);
+							Method _method = clazz.getDeclaredMethod("run");
+							_method.invoke(clazz.newInstance());
+						} catch (ClassNotFoundException | NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | InstantiationException e) {
+							logger.info("-----------------定时任务【" + _clazz + "】执行失败!-----------------", e);
+							e.printStackTrace();
+						}
+					}, firstTime, period, TimeUnit.SECONDS);
+				} else {
+					scheduled.schedule(()->{
+						try {
+							Class<?> clazz = Class.forName(_clazz);
+							Method _method = clazz.getDeclaredMethod("run");
+							_method.invoke(clazz.newInstance());
+						} catch (ClassNotFoundException | NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | InstantiationException e) {
+							logger.info("-----------------定时任务【" + _clazz + "】执行失败!-----------------", e);
+						}
+					}, firstTime, TimeUnit.SECONDS);
+				}
 			}
-			
 		});
 	}
 
@@ -88,6 +88,14 @@ public class ScheduledExecutorRun {
 		}
 		if(flag)
 			period = per;
+	}
+	
+	private boolean isEnable(Integer id) {
+		ScheduledExecutorTask task = taskService.findById(id);
+		if(task.getEnable()) {
+			setTaskTime(task);
+		}
+		return task.getEnable();
 	}
 	
 }

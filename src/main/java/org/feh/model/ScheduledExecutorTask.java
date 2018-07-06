@@ -17,6 +17,8 @@ public class ScheduledExecutorTask {
 
     private Integer cycleS;
 
+    private Boolean enable;
+
     public Integer getId() {
         return id;
     }
@@ -79,5 +81,13 @@ public class ScheduledExecutorTask {
 
     public void setCycleS(Integer cycleS) {
         this.cycleS = cycleS;
+    }
+
+    public Boolean getEnable() {
+        return enable;
+    }
+
+    public void setEnable(Boolean enable) {
+        this.enable = enable;
     }
 }

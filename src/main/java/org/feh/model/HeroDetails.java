@@ -58,6 +58,10 @@ public class HeroDetails {
     public void setHp(Integer hp) {
         this.hp = hp;
     }
+    
+    public void setHp(String hp) {
+    	this.hp = Integer.parseInt(hp);
+    }
 
     public Integer getAtk() {
         return atk;
@@ -67,12 +71,20 @@ public class HeroDetails {
         this.atk = atk;
     }
 
+    public void setAtk(String atk) {
+        this.atk = Integer.parseInt(atk);
+    }
+
     public Integer getSpd() {
         return spd;
     }
 
     public void setSpd(Integer spd) {
         this.spd = spd;
+    }
+    
+    public void setSpd(String spd) {
+    	this.spd = Integer.parseInt(spd);
     }
 
     public Integer getDef() {
@@ -82,12 +94,16 @@ public class HeroDetails {
     public void setDef(Integer def) {
         this.def = def;
     }
+    
+    public void setDef(String def) {
+    	this.def = Integer.parseInt(def);
+    }
 
     public Integer getRes() {
         return res;
     }
 
-    public void setRes(Integer res) {
-        this.res = res;
+    public void setRes(String res) {
+        this.res = Integer.parseInt(res);
     }
 }

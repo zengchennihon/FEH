@@ -2,7 +2,7 @@ package org.feh.model.functions;
 
 import org.feh.enums.ResultCodeEnums;
 
-public class Result {
+public class ResultModel {
 
 	private Integer code;
 
@@ -10,16 +10,16 @@ public class Result {
 
 	private String msg;
 	
-	public static Result result;
+	public static ResultModel result;
 	
 	static {
 		if (result == null) {
-			result = new Result();
+			result = new ResultModel();
 			result.setCode(0);
 		}
 	}
 	
-	public static Result result(Object data) {
+	public static ResultModel result(Object data) {
 		result.setCode(0);
 		if(data != null) {
 			result.setData(data);
@@ -27,7 +27,7 @@ public class Result {
 		return result;
 	}
 	
-	public static Result result(Integer code, Object data) {
+	public static ResultModel result(Integer code, Object data) {
 		result.setCode(code);
 		if(data != null) {
 			result.setData(data);

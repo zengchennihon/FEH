@@ -10,4 +10,6 @@ public interface HeroStarsService {
 
 	boolean saveOrUpdate(HeroStars heroStars);
 
+	HeroStars findByHeroIdStarEquipment(Integer heroId, byte star, boolean equFlag);
+
 }

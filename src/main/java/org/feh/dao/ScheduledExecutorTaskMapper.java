@@ -18,4 +18,7 @@ public interface ScheduledExecutorTaskMapper {
     int updateByPrimaryKey(ScheduledExecutorTask record);
 
 	List<ScheduledExecutorTask> findAllClazzNotNull();
+	
+	ScheduledExecutorTask findById(Integer id);
+	
 }

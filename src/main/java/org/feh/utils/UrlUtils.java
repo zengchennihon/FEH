@@ -40,6 +40,7 @@ public class UrlUtils {
 			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 			connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
 			connection.setRequestProperty("Accept-Charset", "utf-8");
+			connection.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36)");
 			connection.setRequestMethod("POST");
 			connection.setRequestProperty("Cookie", cookie);
 			connection.setRequestProperty("Referer", referer);

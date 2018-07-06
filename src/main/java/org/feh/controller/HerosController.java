@@ -5,7 +5,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.apache.log4j.Logger;
-import org.feh.model.functions.Result;
+import org.feh.model.functions.ResultModel;
 import org.feh.model.vo.HeroAllInfoVo;
 import org.feh.service.HeroService;
 import org.springframework.http.ResponseEntity;
@@ -24,9 +24,9 @@ public class HerosController {
 
 	@RequestMapping(value = "/findAllHeros")
 	@ResponseBody
-	public ResponseEntity<Result> findAllHeros(){
+	public ResponseEntity<ResultModel> findAllHeros(){
 		List<HeroAllInfoVo> infoVos = heroService.findHerosAllInfoVos();
-		return ResponseEntity.ok(Result.result(infoVos));
+		return ResponseEntity.ok(ResultModel.result(infoVos));
 	}
 	
 }

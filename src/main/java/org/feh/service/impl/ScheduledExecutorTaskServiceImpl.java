@@ -6,11 +6,11 @@ import javax.annotation.Resource;
 
 import org.feh.dao.ScheduledExecutorTaskMapper;
 import org.feh.model.ScheduledExecutorTask;
-import org.feh.service.TimerTaskModelService;
+import org.feh.service.ScheduledExecutorTaskService;
 import org.springframework.stereotype.Service;
 
 @Service
-public class TimerTaskModelServiceImpl implements TimerTaskModelService {
+public class ScheduledExecutorTaskServiceImpl implements ScheduledExecutorTaskService {
 	
 	@Resource
 	private ScheduledExecutorTaskMapper scheduledExecutorTaskMapper;
@@ -19,6 +19,12 @@ public class TimerTaskModelServiceImpl implements TimerTaskModelService {
 	public List<ScheduledExecutorTask> findAllClazzNotNull(){
 		List<ScheduledExecutorTask> tasks = scheduledExecutorTaskMapper.findAllClazzNotNull();
 		return tasks;
+	}
+
+	@Override
+	public ScheduledExecutorTask findById(Integer id) {
+		ScheduledExecutorTask task = scheduledExecutorTaskMapper.findById(id);
+		return task;
 	}
 	
 }

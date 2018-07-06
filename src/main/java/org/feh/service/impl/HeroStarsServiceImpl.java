@@ -34,4 +34,10 @@ public class HeroStarsServiceImpl implements HeroStarsService {
 		return false;
 	}
 
+	@Override
+	public HeroStars findByHeroIdStarEquipment(Integer heroId, byte star, boolean equFlag) {
+		HeroStars heroStars = heroStarsMapper.findByHeroIdStarEquipment(heroId, star, equFlag);
+		return heroStars;
+	}
+
 }
