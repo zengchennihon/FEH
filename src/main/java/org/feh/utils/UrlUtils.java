@@ -1,7 +1,9 @@
 package org.feh.utils;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
@@ -119,6 +121,47 @@ public class UrlUtils {
 			}
 		}
 		return result;
+	}
+
+	public static byte[] sendGetImg(String _url, String cookie, String referer) {
+		byte[] imgArrays = new byte[1];
+		InputStream in = null;
+		ByteArrayOutputStream out = null;
+		try {
+			URL url = new URL(_url);
+			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+			connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+			connection.setRequestProperty("Accept-Charset", "utf-8");
+			connection.setRequestMethod("GET");
+			connection.setRequestProperty("Cookie", cookie);
+			connection.setRequestProperty("Referer", referer);
+			connection.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36)");
+			connection.connect();
+			
+			in = connection.getInputStream();
+			out = new ByteArrayOutputStream();
+			byte temp[] = new byte[1024 *1024];
+			int len;
+			while ((len = in.read(temp)) != -1) {
+				out.write(temp, 0, len);
+			}
+			out.flush();
+			return out.toByteArray();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(out != null) {
+					out.close();
+				}
+				if(in != null) {
+					in.close();
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		return imgArrays;
 	}
 
 }

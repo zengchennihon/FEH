@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.feh.model.Hero;
 import org.feh.model.vo.HeroAllInfoVo;
+import org.feh.model.vo.HeroBaseInfoVo;
 
 public interface HeroMapper {
     int deleteByPrimaryKey(Integer id);
@@ -25,4 +26,6 @@ public interface HeroMapper {
 	List<HeroAllInfoVo> findAllInfoVos();
 
 	Hero findByAid(String aid);
+
+	List<HeroBaseInfoVo> findHeros();
 }

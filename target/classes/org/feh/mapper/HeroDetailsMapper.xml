@@ -144,17 +144,17 @@
 		<include refid="Base_Column_List" />
 		from hero_details
 		where hero_stars_id in
-		<foreach collection="list" index="i" item="d" open="(" separator="," close=")">
-			#{d}
+		<foreach collection="list" index="i" item="id" open="(" separator="," close=")">
+			#{id}
 		</foreach>
 	</select>
-	<select id="findByStarsIdsList" parameterType="java.util.Set" resultMap="BaseResultMap">
+	<select id="findByStarsIdsSet" parameterType="java.util.Set" resultMap="BaseResultMap">
 		select
 		<include refid="Base_Column_List" />
 		from hero_details
 		where hero_stars_id in
-		<foreach collection="starsIds" index="i" item="d" open="(" separator="," close=")">
-			#{d}
+		<foreach collection="starsIds" index="i" item="id" open="(" separator="," close=")">
+			#{id}
 		</foreach>
 	</select>
 	<insert id="insertByList" parameterType="java.util.List">
@@ -162,27 +162,62 @@
 		hero_character, hp, atk,
 		spd, def, res)
 		values
-		<foreach collection="list" index="i" item="d" open="(" separator="," close=")">
-			#{heroStarsId}, #{level},
-			#{heroCharacter}, #{hp},
-			#{atk}, #{spd}, #{def}, #{res}
+		<foreach collection="list" index="i" item="hd" separator=",">
+			(#{hd.heroStarsId}, #{hd.level},
+			#{hd.heroCharacter}, #{hd.hp},
+			#{hd.atk}, #{hd.spd}, #{hd.def}, #{hd.res})
 		</foreach>
 	</insert>
 	<update id="updateByList" parameterType="java.util.List">
 		update hero_details
 		set 
-		<foreach collection="list">
-			hero_stars_id =
-			#{heroStarsId,jdbcType=INTEGER},
-			level = #{level,jdbcType=INTEGER},
-			hero_character = #{heroCharacter,jdbcType=VARCHAR},
-			hp = #{hp,jdbcType=INTEGER},
-			atk = #{atk,jdbcType=INTEGER},
-			spd = #{spd,jdbcType=INTEGER},
-			def = #{def,jdbcType=INTEGER},
-			res = #{res,jdbcType=INTEGER}
+		<trim suffixOverrides=",">
+			<trim prefix="hero_stars_id = case " suffix="end, ">
+				<foreach collection="list" index="i" item="hd">
+					when id = #{hd.id} then #{hd.heroStarsId}
+				</foreach>
+			</trim>
+			<trim prefix="level = case " suffix="end, ">
+				<foreach collection="list" index="i" item="hd">
+					when id = #{hd.id} then #{hd.level}
+				</foreach>
+			</trim>
+			<trim prefix="hero_character = case " suffix="end, ">
+				<foreach collection="list" index="i" item="hd">
+					when id = #{hd.id} then #{hd.heroCharacter}
+				</foreach>
+			</trim>
+			<trim prefix="hp = case " suffix="end, ">
+				<foreach collection="list" index="i" item="hd">
+					when id = #{hd.id} then #{hd.hp}
+				</foreach>
+			</trim>
+			<trim prefix="atk = case " suffix="end, ">
+				<foreach collection="list" index="i" item="hd">
+					when id = #{hd.id} then #{hd.atk}
+				</foreach>
+			</trim>
+			<trim prefix="spd = case " suffix="end, ">
+				<foreach collection="list" index="i" item="hd">
+					when id = #{hd.id} then #{hd.spd}
+				</foreach>
+			</trim>
+			<trim prefix="def = case " suffix="end, ">
+				<foreach collection="list" index="i" item="hd">
+					when id = #{hd.id} then #{hd.def}
+				</foreach>
+			</trim>
+			<trim prefix="res = case " suffix="end, ">
+				<foreach collection="list" index="i" item="hd">
+					when id = #{hd.id} then #{hd.res}
+				</foreach>
+			</trim>
+			
+		</trim>
+		where id in 
+		<foreach collection="list" index="i" item="hd" open="(" separator="," close=")">
+			#{hd.id}
 		</foreach>
-		where id = #{id,jdbcType=INTEGER}
 	</update>
 
 </mapper>

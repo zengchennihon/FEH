@@ -4,6 +4,7 @@ public enum ResultCodeEnums {
 	
 	SUCCESS(0, "成功"),
 	
+	ERROR_PARAMETER_NULL(1000, "参数为空"),
 	
 	UNKNOW_ERROR(-999, "未知错误")
 	

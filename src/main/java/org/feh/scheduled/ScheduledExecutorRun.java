@@ -1,6 +1,5 @@
 package org.feh.scheduled;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;
 import java.util.concurrent.Executors;
@@ -12,9 +11,11 @@ import javax.annotation.Resource;
 import org.apache.log4j.Logger;
 import org.feh.model.ScheduledExecutorTask;
 import org.feh.service.ScheduledExecutorTaskService;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 @Component
+@Order(10000)
 public class ScheduledExecutorRun {
 
 	@Resource
@@ -38,7 +39,7 @@ public class ScheduledExecutorRun {
 							Class<?> clazz = Class.forName(_clazz);
 							Method _method = clazz.getDeclaredMethod("run");
 							_method.invoke(clazz.newInstance());
-						} catch (ClassNotFoundException | NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | InstantiationException e) {
+						} catch (Exception e) {
 							logger.info("-----------------定时任务【" + _clazz + "】执行失败!-----------------", e);
 							e.printStackTrace();
 						}
@@ -49,7 +50,7 @@ public class ScheduledExecutorRun {
 							Class<?> clazz = Class.forName(_clazz);
 							Method _method = clazz.getDeclaredMethod("run");
 							_method.invoke(clazz.newInstance());
-						} catch (ClassNotFoundException | NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | InstantiationException e) {
+						} catch (Exception e) {
 							logger.info("-----------------定时任务【" + _clazz + "】执行失败!-----------------", e);
 						}
 					}, firstTime, TimeUnit.SECONDS);

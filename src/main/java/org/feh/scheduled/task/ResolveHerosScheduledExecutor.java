@@ -1,14 +1,11 @@
 package org.feh.scheduled.task;
 
-import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import org.apache.log4j.Logger;
 import org.feh.consts.HerosPropertyConsts;
@@ -43,7 +40,7 @@ public class ResolveHerosScheduledExecutor {
 	}
 
 	public void run() {
-//		List<HeroSource> sources = ResolveHerosUtils.getHeroSourcesByFile();
+		// List<HeroSource> sources = ResolveHerosUtils.getHeroSourcesByFile();
 		List<HeroSource> sources = ResolveHerosUtils.getHeroSourcesByUrl();
 		sources.forEach(s -> {
 			String aid = s.getAid();
@@ -65,26 +62,25 @@ public class ResolveHerosScheduledExecutor {
 			_sourceMap.put("st5", st5);
 			_sourceMap.put("st5_s", st5_s);
 
-			// 获取hero头像
-			String temp = UrlUtils.sendGet(ResolveHerosUtils.HEROHEAD + aid + ".png", null, null);
 			try {
 				Hero hero = heroService.findByAid(aid);
 				if (hero == null) {
 					hero = new Hero();
 					hero.setAid(aid);
 				}
-				hero.setHeadPortrait(temp.getBytes("UTF-8"));
+				// 获取hero头像
+				hero.setHeadPortrait(UrlUtils.sendGetImg(ResolveHerosUtils.HEROHEAD + aid + ".png", null, null));
 				hero.setGender((byte) 1);
 				boolean heroFlag = heroService.saveOrUpdate(hero);
 
 				if (heroFlag) {
 					Integer heroId = hero.getId();
-					//保存姓名信息
+					// 保存姓名信息
 					this.saveOrUpdateHeroName(heroId, name_jp);
 					this.saveOrUpdateHeroStars(heroId, _sourceMap);
 				}
 
-			} catch (IOException e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		});
@@ -93,7 +89,7 @@ public class ResolveHerosScheduledExecutor {
 
 	private boolean saveOrUpdateHeroName(Integer heroId, String name_jp) {
 		HeroName heroName = heroNameService.findByHeroId(heroId);
-		if(heroName == null) {
+		if (heroName == null) {
 			heroName = new HeroName();
 			heroName.setHeroId(heroId);
 		}
@@ -112,14 +108,14 @@ public class ResolveHerosScheduledExecutor {
 			boolean equFlag = _starStr.length() > 3;
 			HeroSourceAttr heroSourceAttr = _sourceMap.get(_starStr);
 			HeroStars heroStars = heroStarsService.findByHeroIdStarEquipment(heroId, star, equFlag);
-			if(heroStars == null) {
+			if (heroStars == null) {
 				heroStars = new HeroStars();
 				heroStars.setHeroId(heroId);
 				heroStars.setStars(star);
 				heroStars.setEquipment(equFlag);
 				heroStarsService.saveOrUpdate(heroStars);
 			}
-			if(heroStars.getId() != null) {
+			if (heroStars.getId() != null) {
 				this.saveOrUpdateHeroDetails(heroStars, heroSourceAttr);
 			}
 		}
@@ -128,35 +124,44 @@ public class ResolveHerosScheduledExecutor {
 	private void saveOrUpdateHeroDetails(HeroStars heroStars, HeroSourceAttr heroSourceAttr) {
 		Integer starId = heroStars.getId();
 		String[] hp = heroSourceAttr.getHP();
-		
-		if(hp != null) {
+
+		if (hp != null) {
 			List<HeroDetails> heroDetails = heroDetailsService.findByStarsIds(starId);
 			List<HeroDetails> hdNeedSaveList = new ArrayList<>();
-			if(heroDetails == null || heroDetails.size() == 0) {
-				this.addHDNeedSaveList(heroSourceAttr, starId, hp, hdNeedSaveList, 1);
-				if(hp.length > 3) {
-					this.addHDNeedSaveList(heroSourceAttr, starId, hp, hdNeedSaveList, 4);
-				}
-				heroDetailsService.saveOrUpdate(hdNeedSaveList);
-			} else {
-				for (HeroDetails details : heroDetails) {
-					
+			this.addHDNeedSaveList(heroSourceAttr, starId, hp, hdNeedSaveList, 1);
+			if (hp.length > 3) {
+				this.addHDNeedSaveList(heroSourceAttr, starId, hp, hdNeedSaveList, 4);
+			}
+			for (HeroDetails _details : heroDetails) {
+				for (HeroDetails details : hdNeedSaveList) {
+					if (_details.getHeroStarsId() == details.getHeroStarsId()
+							&& _details.getLevel() == details.getLevel()
+							&& _details.getHeroCharacter().equals(details.getHeroCharacter())) {
+						details.setId(_details.getId());
+						break;
+					}
 				}
 			}
+			heroDetailsService.saveOrUpdate(hdNeedSaveList);
 		}
-		
 	}
 
-	private void addHDNeedSaveList(HeroSourceAttr heroSourceAttr, Integer starId, String [] hp, List<HeroDetails> hdNeedSaveList, Integer idx) {
-		if(hp[0].matches("\\d+")) {
-			//表示有性格
+	private void addHDNeedSaveList(HeroSourceAttr heroSourceAttr, Integer starId, String[] hp,
+			List<HeroDetails> hdNeedSaveList, Integer idx) {
+		if (hp[0].matches("\\d+")) {
+			// 表示有性格
 			HeroCharacterEnums[] characters = HeroCharacterEnums.values();
 			for (HeroCharacterEnums cae : characters) {
 				HeroDetails details = new HeroDetails();
+				details.setHeroStarsId(starId);
 				String increase = cae.getIncrease();
 				String reduce = cae.getReduce();
 				try {
-					this.doSetProperty(details, heroSourceAttr, idx, increase, reduce);
+					if (HeroCharacterEnums.DEFAULT_CHARACTER.getName().equals(cae.getName())) {
+						this.doSetProperty(details, heroSourceAttr, idx);
+					} else {
+						this.doSetProperty(details, heroSourceAttr, idx, increase, reduce);
+					}
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -164,7 +169,7 @@ public class ResolveHerosScheduledExecutor {
 				hdNeedSaveList.add(details);
 			}
 		} else {
-			//标准性格
+			// 标准性格
 			HeroDetails details = new HeroDetails();
 			details.setHeroStarsId(starId);
 			try {
@@ -176,22 +181,37 @@ public class ResolveHerosScheduledExecutor {
 			hdNeedSaveList.add(details);
 		}
 	}
-	
-	private void doSetProperty(HeroDetails details, HeroSourceAttr heroSourceAttr, Integer idx, String ... increaseOrReduce) throws Exception {
+
+	private void doSetProperty(HeroDetails details, HeroSourceAttr heroSourceAttr, Integer idx,
+			String... increaseOrReduce) throws Exception {
+		switch (idx) {
+		case 1:
+			details.setLevel(1);
+			break;
+		case 4:
+			details.setLevel(40);
+		default:
+			break;
+		}
 		Class<?> clazz = details.getClass();
 		Map<String, Field> _tempMap = new HashMap<>();
 		for (String pro : HerosPropertyConsts.fingAllConsts()) {
 			Field field = clazz.getDeclaredField(pro.toLowerCase());
 			_tempMap.put(pro, field);
 		}
-		if(increaseOrReduce != null) {
+		if (increaseOrReduce != null) {
 			for (int i = 0; i < increaseOrReduce.length; i++) {
 				String ir = increaseOrReduce[i];
 				Field field = _tempMap.remove(ir);
-				Field _field = heroSourceAttr.getClass().getDeclaredField(ir);
+				Field _field = null;
+				try {
+					_field = heroSourceAttr.getClass().getDeclaredField(ir);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 				_field.setAccessible(true);
 				field.setAccessible(true);
-				String _temp[] = (String []) _field.get(heroSourceAttr);
+				String _temp[] = (String[]) _field.get(heroSourceAttr);
 				field.set(details, Integer.parseInt(_temp[i == 1 ? idx + 1 : idx - 1]));
 				_field.setAccessible(false);
 				field.setAccessible(false);
@@ -202,11 +222,11 @@ public class ResolveHerosScheduledExecutor {
 			field.setAccessible(true);
 			Field _field = heroSourceAttr.getClass().getDeclaredField(pro);
 			_field.setAccessible(true);
-			String _temp[] = (String []) _field.get(heroSourceAttr);
+			String _temp[] = (String[]) _field.get(heroSourceAttr);
 			field.set(details, Integer.parseInt(_temp[idx]));
 			_field.setAccessible(false);
 			field.setAccessible(false);
 		}
 	}
-	
+
 }

@@ -10,6 +10,7 @@ import org.feh.dao.HeroNameMapper;
 import org.feh.dao.HeroStarsMapper;
 import org.feh.model.Hero;
 import org.feh.model.vo.HeroAllInfoVo;
+import org.feh.model.vo.HeroBaseInfoVo;
 import org.feh.service.HeroService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -66,6 +67,12 @@ public class HerosServiceImpl implements HeroService {
 	public Hero findByAid(String aid) {
 		Hero hero = heroMapper.findByAid(aid);
 		return hero;
+	}
+
+	@Override
+	public List<HeroBaseInfoVo> findHeros() {
+		List<HeroBaseInfoVo> infoVos = heroMapper.findHeros();
+		return infoVos;
 	}
 
 }

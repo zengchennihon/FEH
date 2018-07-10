@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -7,23 +6,19 @@
 <title>test</title>
 <link rel="stylesheet" href="${basePath }asset/css/bootstrap.min.css">
 <style type="text/css">
+.main{
+	margin-left: 100px;
+	margin-right: 100px;
+}
 #top {
 	width: 100%;
 	height: 90px;
 }
 
-#left {
-	width: 30%;
-}
-
 #center {
-	width: 70%;
-	float: right;
-}
-
-#left, #center{
-	overflow: scroll;
 	height: 900px;
+	width: 100%;
+	float: right;
 }
 
 #botton {
@@ -34,35 +29,18 @@
 </head>
 <body>
 	<div class="main">
-		<iframe id="top"></iframe>
-		<iframe id="left"></iframe>
-		<iframe id="center"></iframe>
-		<iframe id="botton"></iframe>
+		<iframe id="top" src=""></iframe>
+		<iframe id="center" src="${basePath }jump/center/hero-head.action"></iframe>
+		<iframe id="botton" src=""></iframe>
 	</div>
 
 
 
 
-	<script type="text/javascript"
-		src="${basePath }asset/js/jquery-3.3.1.min.js"></script>
+	<script type="text/javascript" src="${basePath }asset/js/jquery-3.3.1.min.js"></script>
 	<script type="text/javascript">
 		~function() {
-			var url = "${basePath }feh/findAllHeros.action";
-			
-			$.ajax({
-				url: url,
-				type: "post",
-				data: {},
-				//contentType: "application/json;charset=utf-8",
-				success: function(res){
-					var _data = res.data;
-					console.log(res);
-					console.log(_data);
-				}
-				
-			});
-			
-			
+
 		}();
 	</script>
 </body>

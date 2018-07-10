@@ -9,30 +9,47 @@ public class ResultModel {
 	private Object data;
 
 	private String msg;
-	
-	public static ResultModel result;
-	
-	static {
-		if (result == null) {
-			result = new ResultModel();
-			result.setCode(0);
-		}
-	}
-	
+
+	private Integer curPage;
+
+	private Long total;
+
 	public static ResultModel result(Object data) {
+		ResultModel result = new ResultModel();
 		result.setCode(0);
-		if(data != null) {
+		if (data != null) {
 			result.setData(data);
 		}
 		return result;
 	}
-	
-	public static ResultModel result(Integer code, Object data) {
-		result.setCode(code);
-		if(data != null) {
+
+	public static ResultModel result(Object data, Integer curPage, Long total) {
+		ResultModel result = new ResultModel();
+		result.setCode(0);
+		result.setCurPage(curPage);
+		result.setTotal(total);
+		if (data != null) {
 			result.setData(data);
 		}
 		return result;
+	}
+
+	public static ResultModel result(Integer code, Object data) {
+		ResultModel result = new ResultModel();
+		result.setCode(code);
+		if (data != null) {
+			result.setData(data);
+		}
+		return result;
+	}
+
+	public static ResultModel result() {
+		ResultModel result = new ResultModel();
+		return result;
+	}
+
+	public ResultModel() {
+		this.setCode(0);
 	}
 
 	public Integer getCode() {
@@ -58,6 +75,22 @@ public class ResultModel {
 
 	public void setMsg(String msg) {
 		this.msg = msg;
+	}
+
+	public Integer getCurPage() {
+		return curPage;
+	}
+
+	public void setCurPage(Integer curPage) {
+		this.curPage = curPage;
+	}
+
+	public Long getTotal() {
+		return total;
+	}
+
+	public void setTotal(Long total) {
+		this.total = total;
 	}
 
 }

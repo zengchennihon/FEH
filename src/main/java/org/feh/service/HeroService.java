@@ -4,9 +4,11 @@ import java.util.List;
 
 import org.feh.model.Hero;
 import org.feh.model.vo.HeroAllInfoVo;
+import org.feh.model.vo.HeroBaseInfoVo;
 
 public interface HeroService {
 	
+	@Deprecated
 	public List<HeroAllInfoVo> findHerosAllInfoVos();
 	
 	/**
@@ -29,5 +31,7 @@ public interface HeroService {
 	 * @return
 	 */
 	public Hero findByAid(String aid);
+
+	public List<HeroBaseInfoVo> findHeros();
 	
 }

@@ -33,13 +33,17 @@
 		where id = #{id,jdbcType=INTEGER}
 	</delete>
 	<insert id="insert" parameterType="org.feh.model.Hero" useGeneratedKeys="true" keyProperty="id">
-		insert into hero (id, aid, gender,
+		insert into hero (id,
+		aid, gender,
 		routine, battle, upanishad,
 		serious_injury, movement_type, head_portrait
 		)
-		values (#{id,jdbcType=INTEGER}, #{aid,jdbcType=VARCHAR}, #{gender,jdbcType=TINYINT},
-		#{routine,jdbcType=VARCHAR}, #{battle,jdbcType=VARCHAR}, #{upanishad,jdbcType=VARCHAR},
-		#{seriousInjury,jdbcType=VARCHAR}, #{movementType,jdbcType=VARCHAR}, #{headPortrait,jdbcType=LONGVARBINARY}
+		values (#{id,jdbcType=INTEGER},
+		#{aid,jdbcType=VARCHAR}, #{gender,jdbcType=TINYINT},
+		#{routine,jdbcType=VARCHAR}, #{battle,jdbcType=VARCHAR},
+		#{upanishad,jdbcType=VARCHAR},
+		#{seriousInjury,jdbcType=VARCHAR}, #{movementType,jdbcType=VARCHAR},
+		#{headPortrait,jdbcType=LONGVARBINARY}
 		)
 	</insert>
 	<insert id="insertSelective" parameterType="org.feh.model.Hero" useGeneratedKeys="true" keyProperty="id">
@@ -136,33 +140,63 @@
 	<update id="updateByPrimaryKeyWithBLOBs" parameterType="org.feh.model.Hero">
 		update hero
 		set aid = #{aid,jdbcType=VARCHAR},
-		gender = #{gender,jdbcType=TINYINT},
+		gender =
+		#{gender,jdbcType=TINYINT},
 		routine = #{routine,jdbcType=VARCHAR},
 		battle = #{battle,jdbcType=VARCHAR},
-		upanishad = #{upanishad,jdbcType=VARCHAR},
+		upanishad =
+		#{upanishad,jdbcType=VARCHAR},
 		serious_injury = #{seriousInjury,jdbcType=VARCHAR},
-		movement_type = #{movementType,jdbcType=VARCHAR},
+		movement_type =
+		#{movementType,jdbcType=VARCHAR},
 		head_portrait = #{headPortrait,jdbcType=LONGVARBINARY}
-		where id = #{id,jdbcType=INTEGER}
+		where id =
+		#{id,jdbcType=INTEGER}
 	</update>
 	<update id="updateByPrimaryKey" parameterType="org.feh.model.Hero">
 		update hero
 		set aid = #{aid,jdbcType=VARCHAR},
-		gender = #{gender,jdbcType=TINYINT},
+		gender =
+		#{gender,jdbcType=TINYINT},
 		routine = #{routine,jdbcType=VARCHAR},
 		battle = #{battle,jdbcType=VARCHAR},
-		upanishad = #{upanishad,jdbcType=VARCHAR},
+		upanishad =
+		#{upanishad,jdbcType=VARCHAR},
 		serious_injury = #{seriousInjury,jdbcType=VARCHAR},
-		movement_type = #{movementType,jdbcType=VARCHAR}
+		movement_type =
+		#{movementType,jdbcType=VARCHAR}
 		where id = #{id,jdbcType=INTEGER}
 	</update>
-	
+
 	<select id="findByAid" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
 		select
-		<include refid="Base_Column_List"/>,
-		<include refid="Blob_Column_List"/>
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
 		from hero
 		where aid = #{aid}
 	</select>
-	
+
+	<resultMap id="heroBaseInfoVo" type="org.feh.model.vo.HeroBaseInfoVo">
+		<id column="hid"/>
+		<collection property="hero" resultMap="BaseResultMap" >
+		</collection>
+		<collection property="heroName" resultMap="org.feh.dao.HeroNameMapper.BaseResultMap">
+		</collection>
+	</resultMap>
+	<sql id="Base_HeroBaseVoColumn">
+		h.id hid, h.aid, h.gender, h.routine, h.battle, h.upanishad, h.serious_injury, h.movement_type,
+		hn.id hnid,
+		hn.hero_id, hn.name_cn, hn.name_jp, hn.name_en
+	</sql>
+
+	<select id="findHeros" resultMap="heroBaseInfoVo">
+		select
+		<include refid="Base_HeroBaseVoColumn" />
+		from
+		hero h
+		LEFT JOIN
+		hero_name hn ON h.id = hn.hero_id
+	</select>
+
 </mapper>
