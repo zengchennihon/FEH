@@ -53,12 +53,19 @@ ul li {
 }
 
 .curLi img {
-	border: solid 1px red;
+	border: solid 2px red;
+}
+
+#search_div{
+	min-height: 100px;
 }
 </style>
 </head>
 <body>
 	<div class="main">
+		<div id="search_div">
+			
+		</div>
 		<div id="heroHeadImg">
 			<ul></ul>
 		</div>
@@ -94,8 +101,8 @@ ul li {
 						var _hero = elt.hero;
 						var _heroName = elt.heroName;
 						var aid = _hero.aid;
-						//$("#heroHeadImg ul").append("<li><img class='hero_head_img' title='" + _heroName.nameJp + "' alt='" + _heroName.nameJp + "' src='${basePath}img/heroHead/" + aid + ".action'/></li>");
-						$("#heroHeadImg ul").append("<li><img class='hero_head_img'/></li>");
+						$("#heroHeadImg ul").append("<li><img class='hero_head_img' title='" + _heroName.nameJp + "' alt='" + _heroName.nameJp + "' src='${basePath}img/heroHead/" + aid + ".action'/></li>");
+						//$("#heroHeadImg ul").append("<li><img class='hero_head_img'/></li>");
 					})
 					_total_all = result.total;
 					console.log(result)

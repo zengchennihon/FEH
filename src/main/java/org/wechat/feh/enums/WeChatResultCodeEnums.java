@@ -1,6 +1,6 @@
 package org.wechat.feh.enums;
 
-public enum WechatResultCodeEnums {
+public enum WeChatResultCodeEnums {
 	
 	THE_SYSTEM_IS_BUSY(-1, "系统繁忙，此时请开发者稍候再试"),
 	SUCCESS(0, "请求成功"),
@@ -17,13 +17,13 @@ public enum WechatResultCodeEnums {
 	private Integer code;
 	private String msg;
 	
-	private WechatResultCodeEnums(Integer code, String msg) {
+	private WeChatResultCodeEnums(Integer code, String msg) {
 		this.code = code;
 		this.msg = msg;
 	}
 	
-	public static WechatResultCodeEnums findByCode(Integer code) {
-		for (WechatResultCodeEnums rce : WechatResultCodeEnums.values()) {
+	public static WeChatResultCodeEnums findByCode(Integer code) {
+		for (WeChatResultCodeEnums rce : WeChatResultCodeEnums.values()) {
 			if(rce.getCode() == code) {
 				return rce;
 			}

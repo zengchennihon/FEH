@@ -16,7 +16,7 @@
 }
 
 #center {
-	height: 900px;
+	height: 650px;
 	width: 100%;
 	float: right;
 }
