@@ -56,7 +56,6 @@ public class HeroDetailsServiceImpl implements HeroDetailsService {
 				num += heroDetailsMapper.insertByList(insertList);
 			}
 			if(updateList.size() > 0) {
-				//TODO 批量更新
 				num += heroDetailsMapper.updateByList(updateList);
 			}
 		} catch (Exception e) {
