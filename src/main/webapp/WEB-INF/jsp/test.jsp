@@ -30,7 +30,7 @@
 <body>
 	<div class="main">
 		<iframe id="top" src=""></iframe>
-		<iframe id="center" src="${basePath }jump/center/hero-head.action"></iframe>
+		<iframe id="center" src="${basePath }jump/center/hero-head-3d.action"></iframe>
 		<iframe id="botton" src=""></iframe>
 	</div>
 

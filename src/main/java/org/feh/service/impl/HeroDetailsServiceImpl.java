@@ -9,6 +9,7 @@ import javax.annotation.Resource;
 
 import org.feh.dao.HeroDetailsMapper;
 import org.feh.model.HeroDetails;
+import org.feh.model.HeroStars;
 import org.feh.service.HeroDetailsService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,6 +38,15 @@ public class HeroDetailsServiceImpl implements HeroDetailsService {
 		List<Integer> _starsIds = Arrays.asList(starsIds);
 		List<HeroDetails> heroDetailsList = heroDetailsMapper.findByStarsIdsList(_starsIds);
 		return heroDetailsList;
+	}
+
+	@Override
+	public List<HeroDetails> findByStars(List<HeroStars> heroStars) {
+		List<Integer> starsIds = new ArrayList<>();
+		heroStars.forEach(star -> {
+			starsIds.add(star.getId());
+		});
+		return this.findByStarsIds(starsIds);
 	}
 
 	@Override

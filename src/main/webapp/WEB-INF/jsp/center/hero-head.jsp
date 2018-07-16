@@ -64,7 +64,7 @@ ul li {
 <body>
 	<div class="main">
 		<div id="search_div">
-			
+			<a href="javascript:void(0);" onclick="changeM();">不习惯3D布局?</a>
 		</div>
 		<div id="heroHeadImg">
 			<ul></ul>
@@ -137,6 +137,12 @@ ul li {
 				$(this).closest("li").addClass("curLi");
 			});
 		}
+		
+		function changeM(){
+			var iframe = parent.$("#center");
+			console.log(iframe.attr("src", "${basePath }jump/center/hero-head-3d.action"));
+		}
+		
 	</script>
 </body>
 </html>

@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import org.apache.log4j.Logger;
 import org.feh.enums.ResultCodeEnums;
 import org.feh.model.functions.ResultModel;
+import org.feh.model.vo.HeroAllInfoVo;
 import org.feh.model.vo.HeroBaseInfoVo;
 import org.feh.service.HeroService;
 import org.springframework.http.ResponseEntity;
@@ -35,6 +36,16 @@ public class HerosController {
 		Page<HeroBaseInfoVo> page = PageHelper.startPage(startPage, count);
 		List<HeroBaseInfoVo> infoVos = heroService.findHeros();
 		return ResponseEntity.ok(ResultModel.result(infoVos, page.getPageNum(), page.getTotal()));
+	}
+	
+	@RequestMapping("/findHeroDetails")
+	@ResponseBody
+	public ResponseEntity<ResultModel> findHeroDetails(String aid){
+		if(aid == null) {
+			return ResponseEntity.ok(ResultModel.result(ResultCodeEnums.ERROR_PARAMETER_NULL.getCode(), null));
+		}
+		HeroAllInfoVo infoVo = heroService.findAllInfoVoByAid(aid);
+		return ResponseEntity.ok(ResultModel.result(infoVo));
 	}
 	
 }

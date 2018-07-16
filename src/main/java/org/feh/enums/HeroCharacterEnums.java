@@ -45,6 +45,15 @@ public enum HeroCharacterEnums {
 		}
 		return null;
 	}
+	
+	public static String findRemarkByName(String key) {
+		for (HeroCharacterEnums e : HeroCharacterEnums.values()) {
+			if(e.getName().equals(key)) {
+				return e.getRemark();
+			}
+		}
+		return "";
+	}
 
 	HeroCharacterEnums(String increase, String reduce, String remark) {
 		this.increase = increase;

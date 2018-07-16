@@ -8,17 +8,6 @@ import org.feh.model.vo.HeroBaseInfoVo;
 
 public interface HeroService {
 	
-	@Deprecated
-	public List<HeroAllInfoVo> findHerosAllInfoVos();
-	
-	/**
-	 * 查询全部信息,根据attr进行排序
-	 * @param attr
-	 * @param order desc OR asc
-	 * @return
-	 */
-	public List<HeroAllInfoVo> findHerosAllInfoVosOrderBy(String attr, String order);
-	
 	public List<Hero> findAllHeros();
 	
 	public boolean saveOrUpdate(Hero hero);
@@ -31,7 +20,9 @@ public interface HeroService {
 	 * @return
 	 */
 	public Hero findByAid(String aid);
-
+	
 	public List<HeroBaseInfoVo> findHeros();
+
+	public HeroAllInfoVo findAllInfoVoByAid(String aid);
 	
 }

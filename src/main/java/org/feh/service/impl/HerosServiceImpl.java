@@ -4,14 +4,18 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import org.feh.dao.HeroDetailsMapper;
 import org.feh.dao.HeroMapper;
-import org.feh.dao.HeroNameMapper;
-import org.feh.dao.HeroStarsMapper;
+import org.feh.enums.HeroCharacterEnums;
 import org.feh.model.Hero;
+import org.feh.model.HeroDetails;
+import org.feh.model.HeroName;
+import org.feh.model.HeroStars;
 import org.feh.model.vo.HeroAllInfoVo;
 import org.feh.model.vo.HeroBaseInfoVo;
+import org.feh.service.HeroDetailsService;
+import org.feh.service.HeroNameService;
 import org.feh.service.HeroService;
+import org.feh.service.HeroStarsService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,28 +26,16 @@ public class HerosServiceImpl implements HeroService {
 	@Resource
 	private HeroMapper heroMapper;
 	@Resource
-	private HeroNameMapper heroNameMapper;
+	private HeroNameService heroNameService;
 	@Resource
-	private HeroDetailsMapper heroDetailsMapper;
+	private HeroStarsService heroStarsService;
 	@Resource
-	private HeroStarsMapper heroStarsMapper;
+	private HeroDetailsService heroDetailsService;
 
 	@Override
 	public List<Hero> findAllHeros() {
 		List<Hero> heros = heroMapper.findAll();
 		return heros;
-	}
-
-	@Override
-	public List<HeroAllInfoVo> findHerosAllInfoVos() {
-		List<HeroAllInfoVo> infoVos = heroMapper.findAllInfoVos();
-		return infoVos;
-	}
-
-	@Override
-	public List<HeroAllInfoVo> findHerosAllInfoVosOrderBy(String attr, String order) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override
@@ -73,6 +65,27 @@ public class HerosServiceImpl implements HeroService {
 	public List<HeroBaseInfoVo> findHeros() {
 		List<HeroBaseInfoVo> infoVos = heroMapper.findHeros();
 		return infoVos;
+	}
+
+	@Override
+	public HeroAllInfoVo findAllInfoVoByAid(String aid) {
+		HeroAllInfoVo allInfoVo = new HeroAllInfoVo();
+		Hero hero = this.findByAid(aid);
+		if(hero != null) {
+			HeroName heroName = heroNameService.findByHeroId(hero.getId());
+			List<HeroStars> stars = heroStarsService.findByHeroId(hero.getId());
+			if(stars != null) {
+				List<HeroDetails> heroDetails = heroDetailsService.findByStars(stars);
+				heroDetails.forEach(d -> {
+					d.setHeroCharacter(HeroCharacterEnums.findRemarkByName(d.getHeroCharacter()));
+				});
+				allInfoVo.setHeroDetails(heroDetails);
+				allInfoVo.setHeroStars(stars);
+			}
+			allInfoVo.setHeroName(heroName);
+			allInfoVo.setHero(hero);
+		}
+		return allInfoVo;
 	}
 
 }
