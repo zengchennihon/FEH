@@ -418,7 +418,6 @@ button:active {
 				},
 				type : 'post',
 				success : function(result) {
-				    console.log(result)
 					if (result.code === 0) {
 						var _data = result.data;
 						var hero = _data.hero, heroName = _data.heroName, heroStars = _data.heroStars, 

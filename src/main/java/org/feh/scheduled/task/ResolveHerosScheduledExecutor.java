@@ -93,11 +93,11 @@ public class ResolveHerosScheduledExecutor {
 			heroName = new HeroName();
 			heroName.setHeroId(heroId);
 		}
-		try {
-			name_jp = new String(name_jp.getBytes(), "UTF-8");
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
+//		try {
+//			name_jp = new String(name_jp.getBytes(), "UTF-8");
+//		} catch (UnsupportedEncodingException e) {
+//			e.printStackTrace();
+//		}
 		heroName.setNameJp(name_jp);
 		return heroNameService.saveOrUpdate(heroName);
 	}
@@ -162,11 +162,11 @@ public class ResolveHerosScheduledExecutor {
 					} else {
 						this.doSetProperty(details, heroSourceAttr, idx, increase, reduce);
 					}
+					details.setHeroCharacter(cae.getName());
+					hdNeedSaveList.add(details);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-				details.setHeroCharacter(cae.getName());
-				hdNeedSaveList.add(details);
 			}
 		} else {
 			// 标准性格
@@ -174,11 +174,11 @@ public class ResolveHerosScheduledExecutor {
 			details.setHeroStarsId(starId);
 			try {
 				this.doSetProperty(details, heroSourceAttr, idx);
+				details.setHeroCharacter(HeroCharacterEnums.DEFAULT_CHARACTER.getName());
+				hdNeedSaveList.add(details);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			details.setHeroCharacter(HeroCharacterEnums.DEFAULT_CHARACTER.getName());
-			hdNeedSaveList.add(details);
 		}
 	}
 

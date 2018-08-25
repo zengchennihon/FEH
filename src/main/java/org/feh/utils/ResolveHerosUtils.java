@@ -48,7 +48,7 @@ public class ResolveHerosUtils {
 				JSONObject jsonObject = new JSONObject(str);
 				Iterator<String> keys = jsonObject.keys();
 				while (keys.hasNext()) {
-					String key = (String) keys.next();
+					String key = keys.next();
 					Object obj = jsonObject.get(key);
 					HeroSource heroSource = gson.fromJson(obj.toString(), HeroSource.class);
 					sources.add(heroSource);
@@ -65,7 +65,7 @@ public class ResolveHerosUtils {
 
 		StringBuffer sb = new StringBuffer();
 		try {
-			String _sb = null;
+			String _sb;
 			while ((_sb = br.readLine()) != null) {
 				sb.append(_sb);
 			}
@@ -73,7 +73,7 @@ public class ResolveHerosUtils {
 				JSONObject object = new JSONObject(sb.toString());
 				Iterator<String> keys = object.keys();
 				while (keys.hasNext()) {
-					String key = (String) keys.next();
+					String key = keys.next();
 					JSONObject heorSource = object.getJSONObject(key);
 					HeroSource source = gson.fromJson(heorSource.toString(), HeroSource.class);
 					sources.add(source);
